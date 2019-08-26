@@ -1,4 +1,5 @@
-import pandas as pd 
+import pandas as pd
+import statistics 
 
 def PERCalculation():
     df_players = pd.read_csv('BR_1999-2019-Regular-PlayerStats-edit.csv')
@@ -7,21 +8,21 @@ def PERCalculation():
     df_teams = df_teams[df_teams['Season'] == '2018-2019']
 
     # league totals and calculations
-    lg_AST = df_players['AST'].sum()
-    lg_FG = df_players['FG'].sum()
-    lg_FT = df_players['FT'].sum()
+    lg_AST = df_players['AST'].mean()
+    lg_FG = df_players['FG'].mean()
+    lg_FT = df_players['FT'].mean()
 
     factor = (2 / 3) - (0.5 * (lg_AST / lg_FG)) / (2 * (lg_FG / lg_FT))
     
-    lg_PTS = df_players['PTS'].sum()
-    lg_FGA = df_players['FGA'].sum()
-    lg_ORB = df_players['ORB'].sum()
-    lg_TOV = df_players['TOV'].sum()
-    lg_FTA = df_players['FTA'].sum()
+    lg_PTS = df_players['PTS'].mean()
+    lg_FGA = df_players['FGA'].mean()
+    lg_ORB = df_players['ORB'].mean()
+    lg_TOV = df_players['TOV'].mean()
+    lg_FTA = df_players['FTA'].mean()
 
     VOP = lg_PTS / (lg_FGA - lg_ORB + lg_TOV + 0.44 * lg_FTA)
 
-    lg_TRB = df_players['TRB'].sum()
+    lg_TRB = df_players['TRB'].mean()
     
     DRB_perc  = (lg_TRB - lg_ORB) / lg_TRB
 
@@ -117,20 +118,18 @@ def PERCalculation():
 
     team_AST, team_FG, team_Pace = {}, {}, {}
     for each_team in unique_teams:
-        team_AST[each_team] = sum(df_players[df_players['Tm'] == each_team]['AST'])
-        team_FG[each_team] = sum(df_players[df_players['Tm'] == each_team]['FG'])
+        team_AST[each_team] = df_players[df_players['Tm'] == each_team]['AST'].mean()
+        team_FG[each_team] = df_players[df_players['Tm'] == each_team]['FG'].mean()
         team_Pace[each_team] = df_teams[df_teams['Tm'] == each_team]['Pace']
         #print(each_team, team_AST[each_team], team_FG[each_team], team_Pace[each_team])
-
-
+    print(team_Pace['GSW'])
     # league variables
-    lg_FT = sum(df_players['FT'])
-    lg_FTA = sum(df_players['FTA'])
-    lg_PF = sum(df_players['PF'])
+    lg_FT = df_players['FT'].mean()
+    lg_FTA = df_players['FTA'].mean()
+    lg_PF = df_players['PF'].mean()
     
     #Figure out way to use player team abb to link to team full team 
-    lg_Pace = sum(df_teams['Pace'])
-
+    lg_Pace = df_teams['Pace'].mean()
     
     aPER_list = []
     # maybe DRB% is not league DRB? - see if calculations work first
@@ -155,18 +154,25 @@ def PERCalculation():
             + VOP * DRB_perc * each_BLK \
             - each_PF * ((lg_FT / lg_PF) - 0.44 * (lg_FTA / lg_PF) * VOP))
 
-        pace_adj = lg_Pace / team_Pace[each_player_team]
+        pace_adj = lg_Pace / team_Pace[each_player_team].values
         aPER = pace_adj * uPER
-        aPER_list.append(aPER)
+        aPER_list.append(aPER.item())
 
-        
-    '''
     # lg_aPER
-    lg_aPER = sum(aPER_list)
-    for each_aPER in aPER_list:
+    lg_aPER = statistics.mean(aPER_list)
+    max_per = 0
+    name_per = ''
+    for each_name, each_aPER in zip(names, aPER_list):
         PER = each_aPER * (15 / lg_aPER)
-    '''
+        #print(each_name, PER)
+        if PER > max_per: 
+            max_per = PER
+            name_per = each_name
     
+    #print(name_per, max_per)
+        
+
+
     #print('factor', factor)
     #print('VOP', VOP)
     #print('DRB%', DRB_perc)
