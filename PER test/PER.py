@@ -45,87 +45,93 @@ def PERCalculation():
     # team variables
     unique_teams = list(set(df_players['Tm']))
 
+    # 2-way dict used to convert full team name to abbreviation and vice-versa
+    team_tm = {
+        'Atlanta Hawks': 'ATL',
+        'Boston Celtics': 'BOS',
+        'Brooklyn Nets': 'BRK',
+        'Charlotte Hornets': 'CHI',
+        'Chicago Bulls': 'CHO',
+        'Cleveland Cavaliers': 'CLE',
+        'Dallas Mavericks': 'DAL',
+        'Denver Nuggets': 'DEN',
+        'Detroit Pistons': 'DET',
+        'Golden State Warriors': 'GSW',
+        'Houston Rockets': 'HOU',
+        'Indiana Pacers': 'IND',
+        'Los Angeles Clippers': 'LAC',
+        'Los Angeles Lakers': 'LAL',
+        'Memphis Grizzlies': 'MEM',
+        'Miami Heat': 'MIA',
+        'Milwaukee Bucks': 'MIL',
+        'Minnesota Timberwolves': 'MIN',
+        'New Orleans Pelicans': 'NOP',
+        'New York Knicks': 'NYK',
+        'Oklahoma City Thunder': 'OKC',
+        'Orlando Magic': 'ORL',
+        'Philadelphia 76ers': 'PHI',
+        'Phoenix Suns': 'PHO',
+        'Portland Trail Blazers': 'POR',
+        'Sacramento Kings': 'SAC',
+        'San Antonio Spurs': 'SAS',
+        'Toronto Raptors': 'TOR',
+        'Utah Jazz': 'UTA',
+        'Washington Wizards': 'WAS',
+        'ATL': 'Atlanta Hawks',
+        'BOS': 'Boston Celtics',
+        'BRK': 'Brooklyn Nets',
+        'CHI': 'Charlotte Hornets',
+        'CHO': 'Chicago Bulls',
+        'CLE': 'Cleveland Cavaliers',
+        'DAL': 'Dallas Mavericks',
+        'DEN': 'Denver Nuggets',
+        'DET': 'Detroit Pistons',
+        'GSW': 'Golden State Warriors',
+        'HOU': 'Houston Rockets',
+        'IND': 'Indiana Pacers',
+        'LAC': 'Los Angeles Clippers',
+        'LAL': 'Los Angeles Lakers',
+        'MEM': 'Memphis Grizzlies',
+        'MIA': 'Miami Heat',
+        'MIL': 'Milwaukee Bucks',
+        'MIN': 'Minnesota Timberwolves',
+        'NOP': 'New Orleans Pelicans',
+        'NYK': 'New York Knicks',
+        'OKC': 'Oklahoma City Thunder',
+        'ORL': 'Orlando Magic',
+        'PHI': 'Philadelphia 76ers',
+        'PHO': 'Phoenix Suns',
+        'POR': 'Portland Trail Blazers',
+        'SAC': 'Sacramento Kings',
+        'SAS': 'San Antonio Spurs',
+        'TOR': 'Toronto Raptors',
+        'UTA': 'Utah Jazz',
+        'WAS': 'Washington Wizards',
+    }
+
+    # adding tm col to df_teams 
+    tm_list = []
+    for each in df_teams['Team']:
+         tm_list.append(team_tm[each])
+    df_teams.insert(4, 'Tm', tm_list)
+
     team_AST, team_FG, team_Pace = {}, {}, {}
     for each_team in unique_teams:
         team_AST[each_team] = sum(df_players[df_players['Tm'] == each_team]['AST'])
         team_FG[each_team] = sum(df_players[df_players['Tm'] == each_team]['FG'])
-        team_Pace[each_team] = df_teams[each_team]['Pace']
-        print(each_team, team_AST[each_team], team_FG[each_team], team_Pace[each_team])
+        team_Pace[each_team] = df_teams[df_teams['Tm'] == each_team]['Pace']
+        #print(each_team, team_AST[each_team], team_FG[each_team], team_Pace[each_team])
+
 
     # league variables
     lg_FT = sum(df_players['FT'])
     lg_FTA = sum(df_players['FTA'])
     lg_PF = sum(df_players['PF'])
-
-    team_tm = {
-        'Atlanta Hawks': 'ATL'
-        'Boston Celtics': 'BOS'
-        'Brooklyn Nets': 'BRK'
-        'Charlotte Hornets': 'CHI'
-        'Chicago Bulls': 'CHO'
-        'Cleveland Cavaliers': 'CLE'
-        'Dallas Mavericks': 'DAL'
-        'Denver Nuggets': 'DEN'
-        'Detroit Pistons': 'DET'
-        'Golden State Warriors': 'GSW'
-        'Houston Rockets': 'HOU'
-        'Indiana Pacers': 'IND'
-        'Los Angeles Clippers': 'LAC'
-        'Los Angeles Lakers': 'LAL'
-        'Memphis Grizzlies': 'MEM'
-        'Miami Heat': 'MIA'
-        'Milwaukee Bucks': 'MIL'
-        'Minnesota Timberwolves': 'MIN'
-        'New Orleans Pelicans': 'NOP'
-        'New York Knicks': 'NYK'
-        'Oklahoma City Thunder': 'OKC'
-        'Orlando Magic': 'ORL'
-        'Philadelphia 76ers': 'PHI'
-        'Phoenix Suns': 'PHO'
-        'Portland Trail Blazers': 'POR'
-        'Sacramento Kings': 'SAC'
-        'San Antonio Spurs': 'SAS'
-        'Toronto Raptors': 'TOR'
-        'Utah Jazz': 'UTA'
-        'Washington Wizards': 'WAS'
-        'ATL': 'Atlanta Hawks'
-        'BOS': 'Boston Celtics'
-        'BRK': 'Brooklyn Nets'
-        'CHI': 'Charlotte Hornets'
-        'CHO': 'Chicago Bulls'
-        'CLE': 'Cleveland Cavaliers'
-        'DAL': 'Dallas Mavericks'
-        'DEN': 'Denver Nuggets'
-        'DET': 'Detroit Pistons'
-        'GSW': 'Golden State Warriors'
-        'HOU': 'Houston Rockets'
-        'IND': 'Indiana Pacers'
-        'LAC': 'Los Angeles Clippers'
-        'LAL': 'Los Angeles Lakers'
-        'MEM': 'Memphis Grizzlies'
-        'MIA': 'Miami Heat'
-        'MIL': 'Milwaukee Bucks'
-        'MIN': 'Minnesota Timberwolves'
-        'NOP': 'New Orleans Pelicans'
-        'NYK': 'New York Knicks'
-        'OKC': 'Oklahoma City Thunder'
-        'ORL': 'Orlando Magic'
-        'PHI': 'Philadelphia 76ers'
-        'PHO': 'Phoenix Suns'
-        'POR': 'Portland Trail Blazers'
-        'SAC': 'Sacramento Kings'
-        'SAS': 'San Antonio Spurs'
-        'TOR': 'Toronto Raptors'
-        'UTA': 'Utah Jazz'
-        'WAS': 'Washington Wizards'
-    }
-
+    
     #Figure out way to use player team abb to link to team full team 
-    print(df_teams[df_teams['Team'] == 'Atlanta Hawks']['Pace'])
     lg_Pace = sum(df_teams['Pace'])
 
     
-    '''
     aPER_list = []
     # maybe DRB% is not league DRB? - see if calculations work first
     for each_name, each_player_team, each_MP, each_player_3P, each_AST, each_FG, each_FT, \
@@ -153,15 +159,16 @@ def PERCalculation():
         aPER = pace_adj * uPER
         aPER_list.append(aPER)
 
+        
+    '''
     # lg_aPER
     lg_aPER = sum(aPER_list)
     for each_aPER in aPER_list:
         PER = each_aPER * (15 / lg_aPER)
-
-        print(each_name, PER)
-        
-    print('factor', factor)
-    print('VOP', VOP)
-    print('DRB%', DRB_perc)
     '''
+    
+    #print('factor', factor)
+    #print('VOP', VOP)
+    #print('DRB%', DRB_perc)
+    
 PERCalculation()
