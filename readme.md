@@ -8,7 +8,7 @@
 | Scrape data - ESPN            |    done   |
 | Clean data - ESPN             |    done   |
 | Calculate PER - initial check |    done   |
-| Add Requirements.txt          |  current  |
+| Add readme, requirements      |  current  |
 | Organize files                |           |
 | Calculate PER - all seasons   |           |
 | Import into SQL db            |           |
