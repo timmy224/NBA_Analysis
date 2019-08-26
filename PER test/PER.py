@@ -1,6 +1,8 @@
 import pandas as pd
 import statistics 
 
+# Basketball reference scraped data differs from ESPN data
+# Team pace is different
 def PERCalculation():
     df_players = pd.read_csv('BR_1999-2019-Regular-PlayerStats-edit.csv')
     df_teams = pd.read_csv('BR_1999-2019-Regular-TeamTotals-edit.csv')
@@ -170,8 +172,6 @@ def PERCalculation():
             name_per = each_name
     
     #print(name_per, max_per)
-        
-
 
     #print('factor', factor)
     #print('VOP', VOP)
