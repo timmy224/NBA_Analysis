@@ -179,6 +179,6 @@ def PERCalculation():
     print(PER_list)  
     df_players.insert(6, 'PER_calc', PER_list)
     print(df_players)
-    df_players.to_csv('test.csv')
+    df_players.to_csv('PER_Calc.csv')
     
 PERCalculation()

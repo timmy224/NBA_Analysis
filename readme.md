@@ -10,8 +10,7 @@
 | Calculate PER - initial check |    done   |
 | Add readme, requirements      |    done   |
 | Calculate PER - all seasons   |    done   |
-| Transform PER_cal(ESPN v. BR) |  current  |
-| Import into SQL db            |           |
+| Import into SQL db            |  current  |
 | Exploratory data analysis     |           |
 | Reassess questions            |           |
 | Preliminary methods           |           |

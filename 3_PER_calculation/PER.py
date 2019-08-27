@@ -163,17 +163,17 @@ def PERCalculation():
 
     # lg_aPER
     lg_aPER = statistics.mean(aPER_list)
-    max_per = 0
-    name_per = ''
+    #max_per = 0
+    #name_per = ''
     for each_name, each_aPER in zip(names, aPER_list):
         PER = each_aPER * (15 / lg_aPER)
-        #print(each_name, PER)
+        
+        '''
         if PER > max_per: 
             max_per = PER
             name_per = each_name
-    
+        '''
     #print(name_per, max_per)
-
     #print('factor', factor)
     #print('VOP', VOP)
     #print('DRB%', DRB_perc)
