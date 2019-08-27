@@ -1,11 +1,12 @@
 import pandas as pd
 import statistics 
 
+# This is onoly for the 2018 - 2019 season
 # Basketball reference scraped data differs from ESPN data
 # Team pace is different
 def PERCalculation():
-    df_players = pd.read_csv('BR_1999-2019-Regular-PlayerStats-edit.csv')
-    df_teams = pd.read_csv('BR_1999-2019-Regular-TeamTotals-edit.csv')
+    df_players = pd.read_csv('BR_1998-2019-Regular-PlayerStats-edit.csv')
+    df_teams = pd.read_csv('BR_1998-2019-Regular-TeamTotals-edit.csv')
     df_players = df_players[df_players['Season'] == '2018-2019']
     df_teams = df_teams[df_teams['Season'] == '2018-2019']
 
