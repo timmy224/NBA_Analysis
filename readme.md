@@ -26,18 +26,18 @@
 
 ## Notes
 
-| Team Name                         | Season    |
-|:----------------------------------|:---------:|
-| New Jersey Nets                   | 1998-2012 |
-| Brooklyn Nets                     | 2012-2019 |
-| Vancouver Grizzlies               | 1998-2001 |
-| Memphis Grizzlies                 | 2001-2019 |
-| Seattle Supersonics               | 1998-2008 |
-| Oklahoma City Thunder             | 2008-2019 |
-| Charlotte Hornets                 | 1998-2002 |
-| Charlotte Bobcats                 | 2004-2014 |
-| Charlotte Hornets                 | 2014-2019 |
-| New Orleans Hornets               | 2002-2005 |
-| New Orleans/Oklahoma City Hornets | 2005-2007 |
-| New Orleans Hornets               | 2007-2013 |
-| New Orleans Pelicans              | 2013-2019 |
+| Team Name                         | Season    | Team Abbrev |
+|:----------------------------------|:---------:|:-----------:|
+| New Jersey Nets                   | 1998-2012 |             |
+| Brooklyn Nets                     | 2012-2019 |             |
+| Vancouver Grizzlies               | 1998-2001 |             |
+| Memphis Grizzlies                 | 2001-2019 |             |
+| Seattle Supersonics               | 1998-2008 |             |
+| Oklahoma City Thunder             | 2008-2019 |             |
+| Charlotte Hornets                 | 1998-2002 | CHH         |
+| Charlotte Bobcats                 | 2004-2014 | CHA         |
+| Charlotte Hornets                 | 2014-2019 | CHO         |
+| New Orleans Hornets               | 2002-2005 | NOH         |
+| New Orleans/Oklahoma City Hornets | 2005-2007 | NOK         |
+| New Orleans Hornets               | 2007-2013 | NOH         |
+| New Orleans Pelicans              | 2013-2019 | NOP         |
