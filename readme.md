@@ -8,9 +8,9 @@
 | Scrape data - ESPN            |    done   |
 | Clean data - ESPN             |    done   |
 | Calculate PER - initial check |    done   |
-| Add readme, requirements      |  current  |
-| Calculate PER - all seasons   |  current  |
-| Rescale PER values (use ESPN) |  current  |
+| Add readme, requirements      |    done   |
+| Calculate PER - all seasons   |    done   |
+| Transform PER_cal(ESPN v. BR) |  current  |
 | Import into SQL db            |           |
 | Exploratory data analysis     |           |
 | Reassess questions            |           |
