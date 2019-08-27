@@ -9,12 +9,13 @@
 | Clean data - ESPN             |    done   |
 | Calculate PER - initial check |    done   |
 | Add readme, requirements      |  current  |
-| Organize files                |           |
-| Calculate PER - all seasons   |           |
+| Calculate PER - all seasons   |  current  |
+| Rescale PER values (use ESPN) |  current  |
 | Import into SQL db            |           |
 | Exploratory data analysis     |           |
 | Reassess questions            |           |
 | Preliminary methods           |           |
+| Organize files                |           |
 
 ## Future
 
