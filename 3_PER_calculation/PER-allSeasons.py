@@ -160,9 +160,8 @@ def PERCalculation():
             pace_adj = lg_Pace / team_Pace[each_player_team].values
             aPER = pace_adj * uPER
             aPER_list.append(aPER.item())
+            #print(each_name, aPER)
             
-    
-
         # lg_aPER
         lg_aPER = statistics.mean(aPER_list)
 

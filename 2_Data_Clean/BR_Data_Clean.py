@@ -94,89 +94,6 @@ def Team_Totals_Clean():
     df2 = df.drop(duplicates_29teams)
     df2 = df2.drop(duplicates_30teams).reset_index(drop=True)
 
-    """
-    # Insert season column
-    df2.insert(0, 'Season_Team', '')
-
-    # SQL - unfinished
-    team_abb = {
-        'ATL': 'Atlanta Hawks',
-        'BOS': 'Boston Celtics',
-        'BRK': 'Brooklyn Nets',
-        'CHA': 'Charlotte Bobcats',
-        'CHH': 'Charlotte Hornets',
-        'CHI': 'Chicago Bulls',
-        'CHO': 'Charlotte Hornets',
-        'CLE': 'Cleveland Cavaliers',
-        'DAL': 'Dallas Mavericks',
-        'DEN': 'Denver Nuggets',
-        'DET': 'Detroit Pistons',
-        'GSW': 'Golden State Warriors',
-        'HOU': 'Houston Rockets',
-        'IND': 'Indiana Pacers',
-        'LAC': 'Los Angeles Clippers',
-        'LAL': 'Los Angeles Lakers',
-        'MEM': 'Memphis Grizzlies',
-        'MIA': 'Miami Heat',
-        'MIL': 'Milwaukee Bucks',
-        'MIN': 'Minnesota Timberwolves',
-        'NJN': 'New Jersey Nets',
-        'NOH': 'New Orleans Hornets',
-        'NOK': 'New Orleans',
-        'NOP': 'New Orleans Pelicans',
-        'NYK': 'New York Knicks',
-        'OKC': 'Oklahoma City Thunder',
-        'ORL': 'Orlando Magic',
-        'PHI': 'Philadelphia 76ers',
-        'POR': 'Portland Trailblazers',
-        'SAC': 'Sacramento Kings',
-        'SAS': 'San Antonia Spurs',
-        'SEA': 'Seattle Supersonics',
-        'TOR': 'Toronto Raptors',
-        'UTA': 'Utah Jazz',
-        'VAN': 'Vancouver Grizzlies',
-        'WAS': 'Washington Wizards',
-    }
-
-    team_abb = {
-        'Atlanta Hawks': 'ATL',
-        'Boston Celtics': 'BOS',
-        'Brooklyn Nets': 'BRK',
-        'Charlotte Bobcats': 'CHA',
-        'Charlotte Hornets': 'CHH',
-        'Chicago Bulls': 'CHI',
-        'Charlotte Hornets': 'CHO',
-        'Cleveland Cavaliers': 'CLE',
-        'Dallas Mavericks': 'DAL',
-        'Denver Nuggets': 'DEN',
-        'Detroit Pistons': 'DET',
-        'Golden State Warriors': 'GSW',
-        'Houston Rockets': 'HOU',
-        'Indiana Pacers': 'IND',
-        'Los Angeles Clippers': 'LAC',
-        'Los Angeles Lakers': 'LAL',
-        'Memphis Grizzlies': 'MEM',
-        'Miami Heat': 'MIA',
-        'Milwaukee Bucks': 'MIL',
-        'Minnesota Timberwolves': 'MIN',
-        'New Jersey Nets': 'NJN',
-        'New Orleans Hornets': 'NOH',
-        'Oklahoma City Hornets': 'NOK',
-        'New Orleans Pelicans': 'NOP',
-        'New York Knicks': 'NYK',
-        'Oklahoma City Thunder': 'OKC',
-        'Orlando Magic': 'ORL',
-        'Philadelphia 76ers': 'PHI',
-        'Portland Trailblazers': 'POR',
-        'Sacramento Kings': 'SAC',
-        'San Antonia Spurs': 'SAS',
-        'Seattle Supersonics': 'SEA',
-        'Toronto Raptors': 'TOR',
-        'Utah Jazz': 'UTA',
-        'Vancouver Grizzlies': 'VAN',
-        'Washington Wizards': 'WAS',
-    }
-    """
     df2.insert(0, 'Season', '')
     # find the first row of each new season
     firstRow_of_each_season = np.where(df2['Rk'] == '1')
@@ -205,18 +122,7 @@ def Team_Totals_Clean():
     for each in df2:
         df2[each].fillna(0, inplace=True)
 
-    """
-    #creating unique ID row for SQL
-    df2.insert(0, 'Season_Team', '')
-
-    id_list = []
-    for season, team in zip(df2.iloc[0], df2.iloc[5]):
-        id_list.append('{}_{}'.format(season, team))
-
-    df2.iloc[0] = id_list
-    """
     df2.to_csv('1999-2019-Regular-TeamTotals-edit.csv')
-
 
 Player_Totals_Clean()
 Team_Totals_Clean()
