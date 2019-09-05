@@ -1,5 +1,6 @@
 import pandas as pd 
 import numpy as np 
+import statsmodels.api as sm
 import matplotlib.pyplot as plt
 
 def getTop12():
@@ -15,7 +16,7 @@ def getTop12():
 
     return df_test
 
-def nba_histogram():
+def hist_season_playerPER():
     """Frequency distribution for top 12 players of each team per season"""
     df_players = getTop12()
 
@@ -36,7 +37,6 @@ def nba_histogram():
             ax[int('{}'.format(i)), int('{}'.format(j))].set_xticklabels([])
             ax[int('{}'.format(i)), int('{}'.format(j))].set_yticklabels([])
             ax[int('{}'.format(i)), int('{}'.format(j))].tick_params(axis='both', which='both', length=0)
-            #ax[int('{}'.format(i)), int('{}'.format(j))].text()
 
     for i, num  in zip(range(1998, 2019), range(1, 22)):
         PER_values['{}-{}'.format(i, i+1)] = df_players[df_players['Season'] == '{}-{}'.format(i, i+1)]['PER_calc']
@@ -58,6 +58,28 @@ def nba_histogram():
         plt.yticks([10, 20, 30, 40, 50, 60, 70])
         plt.text(22, 50, 'mean: {}\nstd: {}'.format(mean_val, std_val), fontsize=8)
 
+def qq_season_playerPER():
+    df_players = getTop12()
+
+    PER_values = {}
+    fig, ax = plt.subplots(3, 7, figsize=(16, 8), tight_layout=True, sharey='all')
+    
+    title_list = []
+    for i in range(1998, 2019): # to make title list 
+        title_list.append('{}-{}'.format(i, i+1))
+
+    for i in range(3):
+        for j in range(7):
+            ax[int('{}'.format(i)), int('{}'.format(j))].set_xticklabels([])
+            ax[int('{}'.format(i)), int('{}'.format(j))].set_yticklabels([])
+            ax[int('{}'.format(i)), int('{}'.format(j))].tick_params(axis='both', which='both', length=0)
+            ax[int('{}'.format(i)), int('{}'.format(j))].set_title(title_list.pop(0))
+
+    for i, num  in zip(range(1998, 2019), range(1, 22)):
+        PER_values['{}-{}'.format(i, i+1)] = df_players[df_players['Season'] == '{}-{}'.format(i, i+1)]['PER_calc']
+
+        sm.qqplot(PER_values['{}-{}'.format(i, i+1)], line='q', ax=fig.add_subplot(3, 7, num), markersize=1)
+
     plt.show()
 
 def nba_boxplots():
@@ -74,4 +96,4 @@ def nba_PCA():
 def nba_team_line():
     pass
 
-nba_histogram()
+qq_season_playerPER()
