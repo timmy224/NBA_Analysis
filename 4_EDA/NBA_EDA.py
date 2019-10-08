@@ -1,10 +1,17 @@
 import pandas as pd 
 import numpy as np 
 from scipy import stats
+
 import statsmodels.api as sm
 import matplotlib.pyplot as plt
 
 def getTop12():
+    """
+    returns: top 12 players per team per season
+    * dataframe
+    * excel: 'top12_test.csv'
+    """
+
     df_players = pd.read_csv('Player_PER_calc.csv')
 
     # drop index from previous dataframe manipulation
@@ -18,7 +25,10 @@ def getTop12():
     return df_test
 
 def histSeasonPlayerPER():
-    """Frequency distribution for top 12 players of each team per season"""
+    """Frequency distribution for top 12 players of each team per season
+
+    returns: histogram with of player PER across different season
+    """
     df_players = getTop12()
 
     # grabs for a single season
@@ -60,6 +70,7 @@ def histSeasonPlayerPER():
         plt.text(22, 50, 'mean: {}\nstd: {}'.format(mean_val, std_val), fontsize=8)
 
 def qqSeasonPlayerPER():
+    """Q-Q plot for player PER rating per season"""
     df_players = getTop12()
 
     PER_values = {}
@@ -82,6 +93,7 @@ def qqSeasonPlayerPER():
         sm.qqplot(PER_values['{}-{}'.format(i, i+1)], line='q', ax=fig.add_subplot(3, 7, num), markersize=1)
     
 def boxPlayerPER():
+    """boxplot of player PER"""
     df_players = getTop12()
 
     PER_values = {}
@@ -96,6 +108,8 @@ def boxPlayerPER():
     ax.set_ylabel('PER Value', fontsize=16)
 
 def boxcoxPlayerPER():
+    """Boxcox normality test for player PER"""
+
     df_players = getTop12()
 
     # There is a single negative PER value. Need to transform so that all 
@@ -106,24 +120,29 @@ def boxcoxPlayerPER():
     df_players.insert(5, 'Trans_PER', transformed_val)
     df_players['PER_calc'] -= 1
 
-    df_players.to_csv('test_trans.csv')
+    #df_players.to_csv('test_trans.csv')
     print('lambda:', lambda_val)
     return df_players, lambda_val
 
-def teamPER_calc():
+def avg_teamPER_calc():
+    """calculates team PER value
+    
+    returns: list of avg_teamPER values
+    """
     df_players = getTop12()
+    df_players = df_players[['Season', 'Player', 'PER_calc', 'Tm', 'MP']]
+    avg_teamPER = df_players.groupby(['Season', 'Tm'])['PER_calc'].sum()/12
 
-    PER_MP = df_players['PER_calc'] * df_players['MP']
-    teamPER = df_players[['Season', 'Tm']]
-    teamPER.insert(2, 'PER_MP', PER_MP)
-
-    teamPER = teamPER.groupby(['Season', 'Tm']).sum()
-    teamPER.to_csv('test_teamPER.csv')
-    return teamPER
+    #avg_teamPER.to_csv('test.csv')
+    avg_teamPER_list = avg_teamPER.tolist()
+    return avg_teamPER_list
     
 def teamRatio_calc():
+    """calculates team win ratio
+    
+    returns list
+    """
     df_teams = pd.read_csv('BR_1998-2019-Regular-TeamTotals-edit.csv', index_col=0)
-
 
     team_tm = {
             'Atlanta Hawks': 'ATL',
@@ -190,10 +209,24 @@ def teamRatio_calc():
 
     df_teams.to_csv('team_tm.csv')
 
-def reg_teamPER_teamRatio():
-    pass
+    return df_teams['Win Ratio']
 
-def nba_team_line():
-    pass
+def teamPER_winRatio():
+    """creates dataframe with teamPER and team win ratio
+    
+    returns: dataframe
+    """
+    df_teams = pd.read_csv('team_tm.csv', index_col=0)
+    df_teams = df_teams[['Season', 'Team', 'Tm', 'Win Ratio']]
+    df_teams.sort_values(by=['Season', 'Team'], inplace=True)
 
-teamRatio_calc()
+    avg_teamPER = avg_teamPER_calc()
+    df_teams.insert(4, 'avg_teamPER', avg_teamPER)
+    print(df_teams)
+
+def regression_teamPER_winRatio():
+    """regression analysis"""
+    df_teams = regression_teamPER_winRatio()
+
+
+
