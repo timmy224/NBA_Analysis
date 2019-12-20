@@ -1,0 +1,5 @@
+What is Wald Test?
+
+Determines whether explanatory variables are significant, meaning, do the 
+variables add anything to the model (can they be deleted without affecting model
+in meaningful way).

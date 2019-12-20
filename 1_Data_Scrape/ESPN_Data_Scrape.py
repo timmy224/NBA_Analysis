@@ -95,16 +95,6 @@ def Player_data():
                     print(rank, player, team, MPG, PER)
                     writer.writerow([rank, player, season, team, MPG, PER])
                 
-'''
-def Player_data_csv():
-    f = StringIO(Player_data())
-    reader = csv.reader(f, delimiter=',') # space 
-    
-    with open('2002-2019-Regular-PlayerStats-raw.csv', 'w') as file:
-        for row in reader:
-            writer = csv.writer(file)
-            writer.writerow(row)
-'''
 Player_data()
 
 

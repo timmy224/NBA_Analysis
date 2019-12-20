@@ -5,7 +5,7 @@ import statistics
 # Basketball reference scraped data differs from ESPN data
 # Team pace is different
 def PERCalculation():
-    df_players = pd.read_csv('BR_1998-2019-Regular-PlayerStats-edit.csv')
+    df_players = pd.read_csv('BR_1998-2019-Regular-PlayerStats-edit.csv', index_col=0)
     df_teams = pd.read_csv('BR_1998-2019-Regular-TeamTotals-edit.csv')
 
     PER_list = []
@@ -53,7 +53,6 @@ def PERCalculation():
         # team variables
         unique_teams = list(set(df_players_inst['Tm']))
 
-        """ need to figure out team name changes """
         # 2-way dict used to convert full team name to abbreviation and vice-versa
         team_tm = {
             'Atlanta Hawks': 'ATL',
@@ -169,13 +168,6 @@ def PERCalculation():
             PER = each_aPER * (15 / lg_aPER)
             PER_list.append(PER)
 
-        #print('factor', factor)
-        #print('VOP', VOP)
-        #print('DRB%', DRB_perc)
-    
-        #df_players_inst.insert(6, 'PER_calc', PER_list)
-        #print(df_players_inst)
-    print(PER_list)  
     df_players.insert(6, 'PER_calc', PER_list)
     print(df_players)
     df_players.to_csv('PER_Calc.csv')

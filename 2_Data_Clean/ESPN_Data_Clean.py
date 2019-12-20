@@ -10,10 +10,10 @@ def dataClean():
     df.rename(columns={'Team': 'Team Abbv'}, inplace=True)
 
 
-    for each in df['Team Abbv']:
-        teams = each.split('/')
-        
+    df['Team Abbv'].replace('', np.nan, inplace=True)
 
-    print(df)
+    df.to_csv('ESPN_2002-2019-Regular-PlayerStats-edit.csv')
+
+    return df
             
 dataClean()

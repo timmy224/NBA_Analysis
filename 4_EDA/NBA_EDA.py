@@ -1,7 +1,7 @@
 import pandas as pd 
 import numpy as np 
 from scipy import stats
-
+import statsmodels.formula.api as smf
 import statsmodels.api as sm
 import matplotlib.pyplot as plt
 
@@ -12,7 +12,7 @@ def getTop12():
     * excel: 'top12_test.csv'
     """
 
-    df_players = pd.read_csv('Player_PER_calc.csv')
+    df_players = pd.read_csv('0_Player_PER_calc.csv')
 
     # drop index from previous dataframe manipulation
     df_players.drop(columns={'Unnamed: 0', 'Unnamed: 0.1'}, inplace=True)
@@ -20,7 +20,7 @@ def getTop12():
     df_players.sort_values(['Season', 'Tm', 'MP', 'PER_calc'], ascending=[False, True, False, False], inplace=True)
     df_test = df_players.groupby(['Season', 'Tm']).head(12)
 
-    df_test.to_csv('top12_test.csv')
+    df_test.to_csv('1_top12_player.csv')
 
     return df_test
 
@@ -30,15 +30,6 @@ def histSeasonPlayerPER():
     returns: histogram with of player PER across different season
     """
     df_players = getTop12()
-
-    # grabs for a single season
-    # PER_values = df_players[df_players['Season'] == '2017-2018']['PER_calc']
-
-    # n, bins, patches = plt.hist(x=PER_values, bins='auto', alpha=0.7, rwidth=0.85)
-    # plt.grid(axis='y', alpha=0.7)
-    # plt.xlabel('PER Value')
-    # plt.ylabel('Frequency')
-    # plt.title('PER distribution')
     
     PER_values = {}
     fig, ax = plt.subplots(3, 7, figsize=(16, 8), tight_layout=True, sharey='all')
@@ -91,7 +82,7 @@ def qqSeasonPlayerPER():
         PER_values['{}-{}'.format(i, i+1)] = df_players[df_players['Season'] == '{}-{}'.format(i, i+1)]['PER_calc']
 
         sm.qqplot(PER_values['{}-{}'.format(i, i+1)], line='q', ax=fig.add_subplot(3, 7, num), markersize=1)
-    
+
 def boxPlayerPER():
     """boxplot of player PER"""
     df_players = getTop12()
@@ -124,25 +115,25 @@ def boxcoxPlayerPER():
     print('lambda:', lambda_val)
     return df_players, lambda_val
 
-def avg_teamPER_calc():
-    """calculates team PER value
-    
-    returns: list of avg_teamPER values
-    """
+def teamPER_calc():
+    """calculates team PER value"""
     df_players = getTop12()
     df_players = df_players[['Season', 'Player', 'PER_calc', 'Tm', 'MP']]
-    avg_teamPER = df_players.groupby(['Season', 'Tm'])['PER_calc'].sum()/12
 
-    #avg_teamPER.to_csv('test.csv')
-    avg_teamPER_list = avg_teamPER.tolist()
-    return avg_teamPER_list
-    
+    PER_MP = df_players['PER_calc'] * df_players['MP']
+    df_players.insert(2, 'log(PER * MP)', PER_MP)
+
+    df_players.sort_values(['Season', 'Tm'], inplace=True)
+
+    teamPER = np.log(df_players.groupby(['Season', 'Tm'])['log(PER * MP)'].sum())
+
+    teamPER.reset_index().to_csv('2_teamPER.csv')
+
 def teamRatio_calc():
     """calculates team win ratio
-    
     returns list
     """
-    df_teams = pd.read_csv('BR_1998-2019-Regular-TeamTotals-edit.csv', index_col=0)
+    df_teams = pd.read_csv('0_BR_1998-2019-Regular-TeamTotals-edit.csv', index_col=0)
 
     team_tm = {
             'Atlanta Hawks': 'ATL',
@@ -206,27 +197,246 @@ def teamRatio_calc():
 
     win_ratio = df_teams['W'] / (df_teams['W'] + df_teams['L'])
     df_teams.insert(5, 'Win Ratio', win_ratio)
+    
 
-    df_teams.to_csv('team_tm.csv')
-
-    return df_teams['Win Ratio']
+    df_teams.to_csv('3_team_data.csv')
 
 def teamPER_winRatio():
     """creates dataframe with teamPER and team win ratio
+    adds conference column to team_data
     
     returns: dataframe
     """
-    df_teams = pd.read_csv('team_tm.csv', index_col=0)
-    df_teams = df_teams[['Season', 'Team', 'Tm', 'Win Ratio']]
-    df_teams.sort_values(by=['Season', 'Team'], inplace=True)
+    df_team_data = pd.read_csv('3_team_data.csv', index_col=0)
+    df_teamPER = pd.read_csv('2_teamPER.csv', index_col=0)
 
-    avg_teamPER = avg_teamPER_calc()
-    df_teams.insert(4, 'avg_teamPER', avg_teamPER)
-    print(df_teams)
+    df_team_data.sort_values(['Season', 'Tm'], ascending=[True, True], inplace=True)
+    df_teamPER.sort_values(['Season', 'Tm'], ascending=[True, True], inplace=True)
 
-def regression_teamPER_winRatio():
-    """regression analysis"""
-    df_teams = regression_teamPER_winRatio()
+    df_teamPER.index = df_team_data.index # align index of dataframes
+    df_team_data.insert(5, 'Team PER', df_teamPER['log(PER * MP)'])
+
+    # adding conference to df for colormapping in corr_teamPER_winRatio()
+    western = {
+        'LAL',
+        'LAC', 
+        'DEN', 
+        'DAL', 
+        'HOU', 
+        'UTA', 
+        'OKC', 
+        'SAC', 
+        'POR', 
+        'PHO', 
+        'MIN', 
+        'SAS', 
+        'MEM', 
+        'NOP', 
+        'GSW', 
+        'SEA', 
+        'VAN', 
+    }
+
+    tm_conf_list = []
+    for each in df_team_data['Tm']:
+        if each in western:
+            tm_conf_list.append('Western')
+        else: 
+            tm_conf_list.append('Eastern')
+
+    df_team_data.insert(4, 'Conference', tm_conf_list)
+
+    df_team_data.to_csv('4_team_data_final.csv')
+
+def corr_teamPER_winRatio():
+    """correlation of team PER and win ratio for each season"""
+
+    df_teams = pd.read_csv('4_team_data_final.csv')
+
+    for each in range(2016, 2019):
+        
+        ind_season = df_teams[df_teams['Season'] == '{}-{}'.format(each, each+1)]
+    
+        x_data = list(ind_season['Team PER'])
+        y_data = list(ind_season['Win Ratio'])
+        names = list(ind_season['Tm'])
+        
+        colormap = []
+        for each in ind_season['Conference']:
+            if each == 'Western':
+                colormap.append('tab:red')
+            else: 
+                colormap.append('tab:blue')
+
+        fig = plt.figure(figsize=(10, 8))
+        ax = plt.subplot(111)
+        ax.set_xmargin(0.05)
+        ax.set_ymargin(0.05)
+
+        plt.scatter([], [], color='r', label='Western')
+        plt.scatter([], [], color='b', label='Eastern')
+        plt.legend(loc="lower right")
+
+        for i,type in enumerate(names):
+            x = x_data[i]
+            y = y_data[i]
+            plt.scatter(x, y, color=colormap[i], s=15)
+            plt.text(x, y-0.01, type, fontsize=7)
+
+        trend = np.polyfit(x_data,y_data,1)
+        trendpoly = np.poly1d(trend) 
+        ax.plot(x_data,trendpoly(x_data), c='orange')
+
+        plt.title('Team PER v. Win Ratio During Regular Season: {}'.format(ind_season['Season'].iloc[0]))
+        plt.ylabel('Win Ratio (Games Won / Games Loss)')
+        plt.xlabel('Team PER (log(Player PER * Player MP))')
+
+        
+    plt.show()
+
+def ols_teamPER_winRatio():
+    """returns table of OLS metrics"""
+    df_teams = pd.read_csv('4_team_data_final.csv')
+
+    stand_residual_dict = {}
+    for each in range(2016, 2019):
+        ind_season = df_teams[df_teams['Season'] == '{}-{}'.format(each, each+1)]
+    
+        x_data = ind_season['Win Ratio']
+        x_data = sm.add_constant(x_data)
+        y_data = ind_season['Team PER']
+    
+        ols_model = sm.OLS(y_data, x_data)
+        results = ols_model.fit()
+        print('{}-{} Season \n'.format(each, each+1), results.summary())
+
+        # create instance of influence
+        influence = results.get_influence()
+        # residuals
+        standardized_residuals = influence.resid_studentized_internal
+        studentized_residuals = influence.resid_studentized_external
+        #print('Standardized residuals \n', standardized_residuals)
+        #print('Studentized residuals \n',  studentized_residuals)
+
+        stand_residual_dict['{}-{}'.format(each, each+1)] = standardized_residuals
+    return stand_residual_dict
+
+def glm_teamPER_winRatio():
+    """returns table of GLM metrics"""
+    df_teams = pd.read_csv('4_team_data_final.csv')
+
+    for each in range(2013, 2014):
+        ind_season = df_teams[df_teams['Season'] == '{}-{}'.format(each, each+1)]
+    
+        x_data = ind_season['Win Ratio']
+        x_data = sm.add_constant(x_data)
+        y_data = ind_season['Team PER']
+    
+        glm_model = sm.GLM(y_data, x_data)
+        results = glm_model.fit()
+        print(results.summary())
+        
+def huber_teamPER_winRatio():
+    """returns table of RLM using Huber's"""
+    df_teams = pd.read_csv('4_team_data_final.csv')
+
+    for each in range(2013, 2014):
+        ind_season = df_teams[df_teams['Season'] == '{}-{}'.format(each, each+1)]
+    
+        x_data = ind_season['Win Ratio']
+        x_data = sm.add_constant(x_data)
+        y_data = ind_season['Team PER']
+    
+        glm_model = sm.RLM(y_data, x_data)
+        results = glm_model.fit()
+        print(results.summary())
+
+def residuals_fitted_teamPER(constant, X1_coefficient, start_year):
+    """generates residual plot
+    Parameters:
+    * constant {float}
+    * 1 coefficient {float}
+    """
+    df_teams = pd.read_csv('4_team_data_final.csv')
+
+    ind_season = df_teams[df_teams['Season'] == '{}-{}'.format(start_year, start_year+1)]
+
+    x_actual = list(ind_season['Win Ratio'])
+    y_actual = list(ind_season['Team PER'])
+    names = list(ind_season['Tm'])
+
+    
+
+    # generating y-predicted values from regression model
+    y_pred = []
+    for x_val in x_actual:
+        y_pred_val = constant + (X1_coefficient * x_val)
+        y_pred.append(y_pred_val)
+    
+    # calculating residuals
+    residual_vals = []
+    for obs, pred in zip(y_actual, y_pred):
+        res_val = obs - pred
+        residual_vals.append(res_val)
+
+    #automate later?
+    #residual_dict['{}-{}'.format(each, each+1)] = residual_vals #alt use ind_season['Season'].iloc[0]
+
+    colormap = []
+    for each in ind_season['Conference']:
+        if each == 'Western':
+            colormap.append('tab:red')
+        else: 
+            colormap.append('tab:blue')
+    
+    fig = plt.figure(figsize=(10, 8))
+    ax = plt.subplot(111)
+    ax.set_xmargin(0.05)
+    ax.set_ymargin(0.05)
+
+    plt.scatter([], [], color='r', label='Western')
+    plt.scatter([], [], color='b', label='Eastern')
+    plt.legend(loc="lower right")
+
+    for i,type in enumerate(names):
+        x = y_actual[i]
+        y = residual_vals[i]
+        plt.scatter(x, y, color=colormap[i], s=15)
+        plt.text(x+0.002, y-0.002, type, fontsize=7)
+
+    plt.hlines(0, linestyles='dashed', xmin=min(y_actual), xmax=max(y_actual))
+
+    plt.title('Residuals v. Fitted Model: {} Season'.format(ind_season['Season'].iloc[0]))
+    plt.ylabel('Residuals')
+    plt.xlabel('Fitted Values')
+
+    plt.show()
+
+residuals_fitted_teamPER(12.3710, 0.6108, 2018) # 18-19
+residuals_fitted_teamPER(12.4140, 0.5646, 2017) # 17-18
+residuals_fitted_teamPER(12.4674, 0.4974, 2016) # 16-17
+# residuals_fitted_teamPER(12.4639, 0.4199, 2015) # 15-16
+# residuals_fitted_teamPER(12.3928, 0.6228, 2014) # 14-15
+
+def qq_teamPER():
+    """normal Q-Q plot for standardized residuals for each season
+    standardized residuals come from ols_teamPER_winRatio()"""
+    stand_residual_dict = ols_teamPER_winRatio()
+
+    for each in range(2016, 2019):
+        fig = sm.qqplot(stand_residual_dict['{}-{}'.format(each, each+1)], line='q', markersize=1)
+        fig.suptitle('Normal Q-Q: {}-{}'.format(each, each+1))
+
+    plt.show()
+
+
+
+
+
+
+
+
+
 
 
 
