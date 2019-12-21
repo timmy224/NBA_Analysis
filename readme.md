@@ -64,6 +64,14 @@ DRB%   = (lg_TRB - lg_ORB) / lg_TRB
 
 Source: BasketBall Reference
 ```
+### Regression Analysis
+For the simplicity of this personal project, only the last 3 seasons were used to investigate whether team PER correlated with win ratio. 
+
+Team PER was calculated by taking the PERs of the top 12 MP players and multiplying it with their respective minutes played. PER is a per-minute rating so by multiplying it with minutes played, it gives players with more minutes played more weight in the team PER value. If a high PER player doesn't play as many minutes, he may not contribute as much to team PER relative to a teammate who has average PER but has played a higher number of minutes. 
+
+Because preliminary data showed that our data was heteroscedastic, a BoxCox test and transformation was applied to team PER values to make it more homoscedastic. BoxCox test returned a lambda of ~0.546, which corresponds to a log transformation of the data. 
+
+Linear models were created using Ordinary Least Squares and evaluated using adjusted R^2, F-statistic from Wald test, residual, and Q-Q plots. 
 
 ## Results and Data Analysis
 When examining the distribution of PER for players across each season, we see that most distributions are right-skewed. 
@@ -75,18 +83,33 @@ As a preliminary investigation, PER values for different positions were also exa
 ![Boxplot](https://github.com/timmy224/NBA_Analysis/blob/master/images/Boxplot_Pos_PER.png?raw=true)
 All of the PER for different positions seem similar to each other with extreme PER values in the upper range.
 
-For the simplicity of this personal project, only the last 3 seasons were used to investigate whether team PER correlated with win ratio. 
+### 2016 - 2017 Regular Season
+There is a distinct linear trend when examining the correlation between Team PER and win ratio. When comparing teams belonging to different conferences, the Western Conference comparatively has stronger teams indicated by the cluster representing high team PER and win ratio. 
+![Corr_2016-2017](https://github.com/timmy224/NBA_Analysis/blob/master/images/Corr_16-17.png?raw=true) 
 
-Team PER was calculated by taking the PERs of the top 12 MP players and multiplying it with their respective minutes played. PER is a per-minute rating so by multiplying it with minutes played, it gives players with more minutes played more weight in the team PER value. If a high PER player doesn't play as many minutes, he may not contribute as much to team PER relative to a teammate who has average PER but has played a higher number of minutes. 
+The summary of our linear model shows an adjusted R^2 of 0.633 and a significant F-statistic. However, when evaluating our model with residuals, we can see there are extreme residuals (especially Minnesota Timberwolves) with an overestimation for lower team PER. Extreme deviations at the tails will skew as observed in the Q-Q plot. 
+<p float="center">
+  <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/OLS_16-17.png?raw=true" width="290" />
+  <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/Residual_16-17.png?raw=true" width="290" /> 
+  <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/QQ_16-17.png?raw=true" width="290" />
+</p>
 
-Because preliminary data showed that our data was heteroscedastic, a BoxCox test and transformation was applied to team PER values to make it more homoscedastic. BoxCox test returned a lambda of ~0.546, which corresponds to a log transformation of the data. 
+### 2017 - 2018 Regular Season
+In the 2017-2018 regular season, we can see that the Golden State Warriors are no longer the team with the highest PER. The Houston Rockets, Toronto Raptors, and Minnesota Timberwolves appear to have similar team PER, but different win ratios. As observed again, the Western Conference shows a strong correlation for having teams with higher PER and win ratio with a larger cluster in the upright portion of the graph. 
+![Corr_2017-2018](https://github.com/timmy224/NBA_Analysis/blob/master/images/Corr_17-18.png?raw=true) 
 
-### Regular Season 2018 - 2019
-When looking at last season (complete season data), there is a strong correlative relationship between Team PER and Win Ratio. 
+There is an improved linear model with an adjusted R^2 of 0.711 and significant F-statistic explaining the variability in data. Despite an improved random pattern in our residuals plot, there are clear outliers in our data as represented by Phoenix, Memphis, Boston, and Minnesota. According to the Q-Q plot, there seems to be fewer deviations from the predicted team PER values relative to the previous season. 
+<p float="center">
+  <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/OLS_17-18.png?raw=true" width="290" />
+  <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/Residual_17-18.png?raw=true" width="290" /> 
+  <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/QQ_17-18.png?raw=true" width="290" />
+</p>
+
+### 2018 - 2019 Regular Season
+Compared to the previous season, the Memphis Grizzlies and Phoenix Suns deviate from this linear model with the Memphis Grizzlies having a higher win ratio with similar Team PER, and the Pheonix Suns having similar win ratio and Team PER.
 ![Corr_2018-2019](https://github.com/timmy224/NBA_Analysis/blob/master/images/Corr_18-19.png?raw=true)
-With teams belonging to different conferences indicated, we can see that the Western Conference has a cluster of teams with high team PER and win ratio.
-
-The summary of our linear model using Ordinary Least Squares indicated that our model had an adjusted R^2 of 0.722 and significant according to F-statistics from Wald test. Besides Memphis Grizzlies, the residuals appear to be random and dispersed, thus supporting our model. Omitting the Grizzlies would suggest a better model can be generated for our given data.
+ 
+The summary of our linear model using Ordinary Least Squares indicated that our model had an adjusted R^2 of 0.722 and significant according to F-statistics from Wald test. Besides Memphis Grizzlies, the residuals appear to be random and dispersed, thus supporting our model. 
 
 <p float="center">
   <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/OLS_18-19.png?raw=true" width="290" />
@@ -94,23 +117,8 @@ The summary of our linear model using Ordinary Least Squares indicated that our 
   <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/QQ_18-19.png?raw=true" width="290" />
 </p>
 
-### Regular Season 2017 - 2018
-![Corr_2017-2018](https://github.com/timmy224/NBA_Analysis/blob/master/images/Corr_17-18.png?raw=true) 
-<p float="center">
-  <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/OLS_17-18.png?raw=true" width="290" />
-  <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/Residual_17-18.png?raw=true" width="290" /> 
-  <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/QQ_17-18.png?raw=true" width="290" />
-</p>
-
-### Regular Season 2016 - 2019 
-![Corr_2016-2017](https://github.com/timmy224/NBA_Analysis/blob/master/images/Corr_16-17.png?raw=true) 
-<p float="center">
-  <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/OLS_16-17.png?raw=true" width="290" />
-  <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/Residual_16-17.png?raw=true" width="290" /> 
-  <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/QQ_16-17.png?raw=true" width="290" />
-</p>
-
 ## Discussion and Future Projections
+### Outliers
 
 
 
