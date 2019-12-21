@@ -10,49 +10,80 @@
 | Calculate PER - initial check |    done   |
 | Add readme, requirements      |    done   |
 | Calculate PER - all seasons   |    done   |
-| Import into SQL db            |    done   |
-| Work on Readme.md             |  current  |        
+| Preliminary methods           |    done   |
 | Exploratory data analysis     |  current  |
-| Reassess questions            |           |
-| Preliminary methods           |           |
+| Write summary/abstract        |  current  | 
 | Organize files                |           |
-| Write summary/abstract        |           |
+| Import into SQL db            |  revisit  |
 
 ## Introduction
-Player Efficiency Rating is a metric developed by John Hollinger one type of metric used describe a player's accomplishments and failures on the court for a given season. A PER value of 15 is the average rating of a player, while a rating of approaching 30 represents a player who is exceptional compared to his peers. 
+Basketball is an exciting sport supported by many years of data on its players and teams through the last 20+ years. Throughout history, team managements and statisticians have created various metrics to evaluate player impact on the court. One of these metrics, the Player Efficiency Rating, was developed by John Hollinger to help describe a player's accomplishments and failures on the court for a given season. The Player Efficiency Rating is a single value derived from a variety of offensive and defensive player statistics relative to his peers. For any given season an average player would have a PER value of 15, while a rating of close to 30 represents a player who is exceptional compared to his peers. 
+
+Currently, 30 NBA teams across two conferences play 82 games during the regular season hoping to qualify for one of 16 spots in the NBA playoffs. To earn a spot for the post-season, teams must have a win ratio above 0.5 and be in the top 4 for their respective conferences. Although PER is a good metric to quantify an individual player's ability on the court, it doesn't capture an entire team's ability. This project aims to investigate whether PER ratings of players correlate with their team's win ratio and therefore a predictive of a playoff spot.  
+
 
 ## Questions
 1. Does PER significantly differ across basketball positions?
     * Box plot
 
 2. Is there a relationship between Team PER value and win ratio?
-    * Regression Analysis
+    * Correlation
 
-3. How has basketball playstyle changed over the last 21 years? (i.e. seasons v. 3 points, 3pts v. win/loss ratio
-    * Time Series 
+3. Can regular season Team PER values be used to predict post-season teams?
+    * Regression Analysis
 
 ## Methods
 ### Data Source
-Webscrapers were built to gather data from Basketball Reference and ESPN's website. I initially scraped player and team data from Basketball Reference for seasons spanning from 1998 to 2019. I also decided to scrape ESPN's NBA data primarily for their PER values as a validation for my PER calculations using Basketball Reference's data.
+Webscrapers were built to gather data from Basketball Reference's and ESPN's website. Player and team data was scraped from Basketball Reference for seasons spanning from 1998 to 2019. PER data was also scraped from ESPN to help validate PER calculations using Basketball Reference's data.
 
 Note: PER generated from Basketball Reference's player and team data differs from the PER value taken from ESPN. Basketball Reference and ESPN have different PACE values. 
 
-### Data Clean/Prep
-I calculated PER for all players from 1998 - 2019, but only chose to work with the top 12 individuals of games minutes played because these players serve as the roster for the majority of the season (accounting for trades, injuries, etc. as none to minimal minutes played relative to other players on team).
+### Data Clean & Prep
+PER was calculated for all players from 1998 - 2019, but this project focused on the top 12 individuals of minutes played for each team. By taking only the top 12 minutes played players, this helps account for any roster changes or inactivity throughout the season due trades, injuries, etc.
 
-1. What is the distribution of player PER values for each season?
-    * Frequency Histogram - most distributions are right skewed
-    * Q-Q Plot - some distributions are right-skewed or some just have heavy right tails 
+### Player Efficiency Rating Formula 
+```sh
+uPER = (1 / MP) *
+     [ 3P
+     + (2/3) * AST
+     + (2 - factor * (team_AST / team_FG)) * FG
+     + (FT *0.5 * (1 + (1 - (team_AST / team_FG)) + (2/3) * (team_AST / team_FG)))
+     - VOP * TOV
+     - VOP * DRB% * (FGA - FG)
+     - VOP * 0.44 * (0.44 + (0.56 * DRB%)) * (FTA - FT)
+     + VOP * (1 - DRB%) * (TRB - ORB)
+     + VOP * DRB% * ORB
+     + VOP * STL
+     + VOP * DRB% * BLK
+     - PF * ((lg_FT / lg_PF) - 0.44 * (lg_FTA / lg_PF) * VOP) ]
 
-2. What is the distribution of PER values for basketball positions? 
-    * Mean PER values were relatively the same across all positions
+
+factor = (2 / 3) - (0.5 * (lg_AST / lg_FG)) / (2 * (lg_FG / lg_FT))
+VOP    = lg_PTS / (lg_FGA - lg_ORB + lg_TOV + 0.44 * lg_FTA)
+DRB%   = (lg_TRB - lg_ORB) / lg_TRB
+
+Source: BasketBall Reference
+```
+
+## Results and Data Analysis
+When examining the distribution of PER for players across each season, we see that most distributions are right-skewed. 
+![Frequency Histogram](https://github.com/timmy224/NBA_Analysis/blob/master/images/Hist_Season_Player_PER.png?raw=true)
+
+![Q-Q Plot](https://github.com/timmy224/NBA_Analysis/blob/master/images/QQ_Season_Player_PER.png?raw=true)
+
+As a preliminary investigation, PER values for different positions were also examined. 
+![Boxplot](https://github.com/timmy224/NBA_Analysis/blob/master/images/Boxplot_Pos_PER.png?raw=true)
+All of the PER for different positions seem similar to each other with extreme PER values in the upper range.
+
+
 
 3. Is there a relationship between Team PER value and win ratio?
 UPDATE - finished calculating Team PER and Team Win Ratio
+    * Correlation 
     * Regression
     * Q-Q plot, residuals plot for validation 
 
-4. How has 3-pt shooting changed over the years? 
+4. Can we use 
 
 
 ## Future
