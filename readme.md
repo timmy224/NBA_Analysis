@@ -79,7 +79,7 @@ For the simplicity of this personal project, only the last 3 seasons were used t
 
 Team PER was calculated by taking the PERs of the top 12 MP players and multiplying it with their respective minutes played. PER is a per-minute rating so by multiplying it with minutes played, it gives players with more minutes played more weight in the team PER value. If a high PER player doesn't play as many minutes, he may not contribute as much to team PER relative to a teammate who has average PER but has played a higher number of minutes. 
 
-Because preliminary data showed that our data was heteroscedastic, a BoxCox test and transformation was applied to team PER values to make it more homoscedastic. BoxCox test returned a lambda of 0.5456632512114474, which corresponds to a log transformation of the data. 
+Because preliminary data showed that our data was heteroscedastic, a BoxCox test and transformation was applied to team PER values to make it more homoscedastic. BoxCox test returned a lambda of ~0.546, which corresponds to a log transformation of the data. 
 
 ### Regular Season 2018 - 2019
 When looking at last season (complete season data), there is a strong correlative relationship between Team PER and Win Ratio. 
@@ -87,13 +87,14 @@ When looking at last season (complete season data), there is a strong correlativ
 With teams belonging to different conferences indicated, it can see that the Western Conference has a cluster of teams with high team PER and win ratio.
 
 The summary of our linear model using Ordinary Least Squares (OLS) indicated that our model had an adjusted R^2 of 0.722 and significant according to F-statistics from Wald test. 
-![OLS_2018-2019](https://github.com/timmy224/NBA_Analysis/blob/master/images/OLS_18-19.png?raw=true)
+![OLS_2018-2019](https://github.com/timmy224/NBA_Analysis/blob/master/images/OLS_18-19.png?raw=true=100x20)
 
 Besides Memphis Grizzlies, the residuals appear to be random and dispersed, thus supporting our model. Omitting the Grizzlies would suggest a better model can be generated for our given data.
 ![Residuals_2018-2019](https://github.com/timmy224/NBA_Analysis/blob/master/images/Residual_18-19.png?raw=true)
 ![Q-Q_2018-2019](https://github.com/timmy224/NBA_Analysis/blob/master/images/QQ_18-19.png?raw=true)
 
-
+### Regular Season 2017 - 2018 
+### Regular Season 2016 - 2019 
 
 3. Is there a relationship between Team PER value and win ratio?
 UPDATE - finished calculating Team PER and Team Win Ratio
