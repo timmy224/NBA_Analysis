@@ -93,10 +93,10 @@ The summary of our linear model using Ordinary Least Squares indicated that our 
 Besides Memphis Grizzlies, the residuals appear to be random and dispersed, thus supporting our model. Omitting the Grizzlies would suggest a better model can be generated for our given data.
 
 
-<p float="left">
-  <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/OLS_18-19.png?raw=true" width="300" />
-  <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/Residual_18-19.png?raw=true" width="300" /> 
-  <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/QQ_18-19.png?raw=true" width="300" />
+<p float="center">
+  <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/OLS_18-19.png?raw=true" width="280" />
+  <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/Residual_18-19.png?raw=true" width="280" /> 
+  <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/QQ_18-19.png?raw=true" width="280" />
 </p>
 
 ### Regular Season 2017 - 2018 
