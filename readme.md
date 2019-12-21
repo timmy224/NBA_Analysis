@@ -84,14 +84,9 @@ Because preliminary data showed that our data was heteroscedastic, a BoxCox test
 ### Regular Season 2018 - 2019
 When looking at last season (complete season data), there is a strong correlative relationship between Team PER and Win Ratio. 
 ![Corr_2018-2019](https://github.com/timmy224/NBA_Analysis/blob/master/images/Corr_18-19.png?raw=true)
-With teams belonging to different conferences indicated, it can see that the Western Conference has a cluster of teams with high team PER and win ratio.
+With teams belonging to different conferences indicated, we can see that the Western Conference has a cluster of teams with high team PER and win ratio.
 
-The summary of our linear model using Ordinary Least Squares indicated that our model had an adjusted R^2 of 0.722 and significant according to F-statistics from Wald test. 
-
-<img align="right" width="80%" height="80%" src="https://github.com/timmy224/NBA_Analysis/blob/master/images/OLS_18-19.png?raw=true">
-
-Besides Memphis Grizzlies, the residuals appear to be random and dispersed, thus supporting our model. Omitting the Grizzlies would suggest a better model can be generated for our given data.
-
+The summary of our linear model using Ordinary Least Squares indicated that our model had an adjusted R^2 of 0.722 and significant according to F-statistics from Wald test. Besides Memphis Grizzlies, the residuals appear to be random and dispersed, thus supporting our model. Omitting the Grizzlies would suggest a better model can be generated for our given data.
 
 <p float="center">
   <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/OLS_18-19.png?raw=true" width="280" />
