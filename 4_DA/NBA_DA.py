@@ -288,12 +288,12 @@ def corr_teamPER_winRatio():
         ax.plot(x_data,trendpoly(x_data), c='orange')
 
         plt.title('Team PER v. Win Ratio During Regular Season: {}'.format(ind_season['Season'].iloc[0]))
-        plt.ylabel('Win Ratio (Games Won / Games Loss)')
+        plt.ylabel('Win Ratio (Games Won / Total Games)')
         plt.xlabel('Team PER (log(Player PER * Player MP))')
 
         
     plt.show()
-
+corr_teamPER_winRatio()
 def ols_teamPER_winRatio():
     """returns table of OLS metrics"""
     df_teams = pd.read_csv('4_team_data_final.csv')
@@ -432,38 +432,49 @@ def future_test():
 
     # 2018 - 2019 Western
     west_teams = df_teams[(df_teams['Season']=='2018-2019') & (df_teams['Conference']=='Western')]
-    y_18_west = west_teams['Team PER']
-    x_18_west = west_teams['Win Ratio']
+    y_18_west = list(west_teams['Win Ratio'])
+    x_18_west = list(west_teams['Rk'])
     names_west = west_teams['Tm']
 
     # 2018-2019 Eastern
     east_teams = df_teams[(df_teams['Season']=='2018-2019') & (df_teams['Conference']=='Eastern')]
-    y_18_east = east_teams['Team PER']
-    x_18_east = east_teams['Win Ratio']
+    y_18_east = list(east_teams['Win Ratio'])
+    x_18_east = list(east_teams['Rk'])
     names_east = east_teams['Tm']
 
-    x = df_teams[df_teams['Season']=='2018-2019']['Win Ratio']
+    rk = df_teams[df_teams['Season']=='2018-2019']['Rk']
+    teamPER_pred = df_teams[df_teams['Season']=='2018-2019']['Team PER']
 
-    y_16_pred = []
-    y_17_pred = []
+    winR_16_pred = []
+    winR_17_pred = []
 
-    for i in x:
-        res = 12.4674 + 0.4974 * i # 2016
-        y_16_pred.append(res)
-        res = 12.4140 + 0.5646 * i # 2017
-        y_17_pred.append(res)
+    for i in teamPER_pred:
+        res = (i - 12.4674)/0.4974 # 2016
+        winR_16_pred.append(res)
+        res = (i - 12.4140)/0.5646 # 2017
+        winR_17_pred.append(res)
     
-    fig = plt.figure(figsize=(10, 8))
+    fig = plt.figure(figsize=(12, 8))
     ax = plt.subplot(111)
     ax.set_xmargin(0.05)
     ax.set_ymargin(0.05)
 
     plt.scatter(x_18_west, y_18_west, color='r', label='Western')
     plt.scatter(x_18_east, y_18_east, color='b', label='Eastern')
-    plt.scatter(x, y_16_pred, color='c', label='2016 predicted')
-    plt.scatter(x, y_17_pred, color='m', label='2017 predicted')
-    plt.legend(loc="lower right")
+    plt.scatter(rk, winR_16_pred, color='c', label='2016 predicted')
+    plt.scatter(rk, winR_17_pred, color='m', label='2017 predicted')
+    plt.legend(loc="upper right")
 
+    for i, txt in enumerate(names_west):
+        ax.annotate(txt, (x_18_west[i]+0.05, y_18_west[i]), size=10)
+    
+    for i, txt in enumerate(names_east):
+        ax.annotate(txt, (x_18_east[i]+0.05, y_18_east[i]), size=10)
+
+    plt.title('2018-2019 Regular Season Prediction')
+    plt.ylabel('Win Ratio (Games Won / Total Games)')
+    plt.xlabel('Season Ranking')
+    plt.tight_layout()
     plt.show()
 
 future_test()
