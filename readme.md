@@ -89,21 +89,29 @@ With teams belonging to different conferences indicated, we can see that the Wes
 The summary of our linear model using Ordinary Least Squares indicated that our model had an adjusted R^2 of 0.722 and significant according to F-statistics from Wald test. Besides Memphis Grizzlies, the residuals appear to be random and dispersed, thus supporting our model. Omitting the Grizzlies would suggest a better model can be generated for our given data.
 
 <p float="center">
-  <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/OLS_18-19.png?raw=true" width="300" />
-  <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/Residual_18-19.png?raw=true" width="300" /> 
-  <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/QQ_18-19.png?raw=true" width="300" />
+  <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/OLS_18-19.png?raw=true" width="290" />
+  <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/Residual_18-19.png?raw=true" width="290" /> 
+  <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/QQ_18-19.png?raw=true" width="290" />
 </p>
 
-### Regular Season 2017 - 2018 
+### Regular Season 2017 - 2018
+![Corr_2017-2018](https://github.com/timmy224/NBA_Analysis/blob/master/images/Corr_17-18.png?raw=true) 
+<p float="center">
+  <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/OLS_17-18.png?raw=true" width="290" />
+  <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/Residual_17-18.png?raw=true" width="290" /> 
+  <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/QQ_17-18.png?raw=true" width="290" />
+</p>
+
 ### Regular Season 2016 - 2019 
+![Corr_2016-2017](https://github.com/timmy224/NBA_Analysis/blob/master/images/Corr_16-17.png?raw=true) 
+<p float="center">
+  <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/OLS_16-17.png?raw=true" width="290" />
+  <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/Residual_16-17.png?raw=true" width="290" /> 
+  <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/QQ_16-17.png?raw=true" width="290" />
+</p>
 
-3. Is there a relationship between Team PER value and win ratio?
-UPDATE - finished calculating Team PER and Team Win Ratio
-    * Correlation 
-    * Regression
-    * Q-Q plot, residuals plot for validation 
+## Discussion and Future Projections
 
-4. Can we use 
 
 
 ## Future
