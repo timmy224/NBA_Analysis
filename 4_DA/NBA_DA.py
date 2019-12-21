@@ -6,12 +6,11 @@ import statsmodels.api as sm
 import matplotlib.pyplot as plt
 
 def getTop12():
+    """ returns top 12 most minutes played players per team per season
+    Input: None (hardcoded filename)
+    Output: CSV file
+    Return: Dataframe 
     """
-    returns: top 12 players per team per season
-    * dataframe
-    * excel: 'top12_test.csv'
-    """
-
     df_players = pd.read_csv('0_Player_PER_calc.csv')
 
     # drop index from previous dataframe manipulation
@@ -21,17 +20,17 @@ def getTop12():
     df_test = df_players.groupby(['Season', 'Tm']).head(12)
 
     df_test.to_csv('1_top12_player.csv')
-
     return df_test
 
 def hist_SeasonPlayerPER():
     """Frequency distribution for top 12 players of each team per season
-
+    Input: None (hardcoded dataframe from getTop12())
     returns: histogram with of player PER across different season
     """
     df_players = getTop12()
     
     PER_values = {}
+
     fig, ax = plt.subplots(3, 7, figsize=(16, 8), tight_layout=True, sharey='all')
     
     for i in range(3):
@@ -59,9 +58,12 @@ def hist_SeasonPlayerPER():
         plt.title('{}-{}'.format(i, i+1), fontsize=12)
         plt.yticks([10, 20, 30, 40, 50, 60, 70])
         plt.text(22, 50, 'mean: {}\nstd: {}'.format(mean_val, std_val), fontsize=8)
+    plt.show()
 
 def qq_SeasonPlayerPER():
-    """Q-Q plot for player PER rating per season"""
+    """Q-Q plot for player PER rating per season
+    Input: None (hardcoded dataframe from getTop12())
+    returns: Q-Q plot of player PER from all seasons"""
     df_players = getTop12()
 
     PER_values = {}
@@ -82,9 +84,13 @@ def qq_SeasonPlayerPER():
         PER_values['{}-{}'.format(i, i+1)] = df_players[df_players['Season'] == '{}-{}'.format(i, i+1)]['PER_calc']
 
         sm.qqplot(PER_values['{}-{}'.format(i, i+1)], line='q', ax=fig.add_subplot(3, 7, num), markersize=1)
+    
+    plt.show()
 
 def boxplot_PlayerPER():
-    """boxplot of player PER"""
+    """boxplot of player PER
+    Input: None (hardcoded dataframe from getTop12())
+    returns: boxplot of player PER across different season"""
     df_players = getTop12()
 
     PER_values = {}
@@ -98,8 +104,12 @@ def boxplot_PlayerPER():
     ax.set_title('PER For Different Basketball Positions',  fontsize=20)
     ax.set_ylabel('PER Value', fontsize=16)
 
+    plt.show()
+
 def boxcox_PlayerPER():
-    """Boxcox normality test for player PER"""
+    """Boxcox normality test for player PER
+    Input: None (hardcoded dataframe from getTop12())
+    returns: lambda value to figure out how to transform data"""
 
     df_players = getTop12()
 
@@ -116,22 +126,25 @@ def boxcox_PlayerPER():
     return df_players, lambda_val
 
 def teamPER_calc():
-    """calculates team PER value"""
+    """calculates team PER value
+    Input: None (hardcoded dataframe from getTop12())
+    Output: CSV file"""
     df_players = getTop12()
     df_players = df_players[['Season', 'Player', 'PER_calc', 'Tm', 'MP']]
 
     PER_MP = df_players['PER_calc'] * df_players['MP']
     df_players.insert(2, 'log(PER * MP)', PER_MP)
-
     df_players.sort_values(['Season', 'Tm'], inplace=True)
 
+    # log transformation based on BoxCox lambda value
     teamPER = np.log(df_players.groupby(['Season', 'Tm'])['log(PER * MP)'].sum())
 
     teamPER.reset_index().to_csv('2_teamPER.csv')
 
 def teamRatio_calc():
     """calculates team win ratio
-    returns list
+    Input: None (hardcoded filename)
+    returns: CSV file
     """
     df_teams = pd.read_csv('0_BR_1998-2019-Regular-TeamTotals-edit.csv', index_col=0)
 
@@ -193,19 +206,19 @@ def teamRatio_calc():
                 tm_list.append(team_tm['Charlotte Hornets'][1])
         else:
             tm_list.append(team_tm[each_team])
+        
     df_teams.insert(3, 'Tm', tm_list)
 
+    # calculate win ratio 
     win_ratio = df_teams['W'] / (df_teams['W'] + df_teams['L'])
     df_teams.insert(5, 'Win Ratio', win_ratio)
     
-
     df_teams.to_csv('3_team_data.csv')
 
 def teamPER_winRatio():
     """creates dataframe with teamPER and team win ratio
-    adds conference column to team_data
-    
-    returns: dataframe
+    Input: None (hardcoded filename)
+    Output: CSV file
     """
     df_team_data = pd.read_csv('3_team_data.csv', index_col=0)
     df_teamPER = pd.read_csv('2_teamPER.csv', index_col=0)
@@ -216,7 +229,7 @@ def teamPER_winRatio():
     df_teamPER.index = df_team_data.index # align index of dataframes
     df_team_data.insert(5, 'Team PER', df_teamPER['log(PER * MP)'])
 
-    # adding conference to df for colormapping in corr_teamPER_winRatio()
+    # for colormapping in corr_teamPER_winRatio()
     western = {
         'LAL',
         'LAC', 
@@ -249,12 +262,13 @@ def teamPER_winRatio():
     df_team_data.to_csv('4_team_data_final.csv')
 
 def corr_teamPER_winRatio():
-    """correlation of team PER and win ratio for each season"""
+    """correlation of team PER and win ratio for each season
+    Input: None (hardcoded filename)
+    Returns: Scatter plot"""
 
     df_teams = pd.read_csv('4_team_data_final.csv')
 
     for each in range(2016, 2019):
-        
         ind_season = df_teams[df_teams['Season'] == '{}-{}'.format(each, each+1)]
     
         x_data = list(ind_season['Team PER'])
@@ -273,6 +287,7 @@ def corr_teamPER_winRatio():
         ax.set_xmargin(0.05)
         ax.set_ymargin(0.05)
 
+        # legend
         plt.scatter([], [], color='r', label='Western')
         plt.scatter([], [], color='b', label='Eastern')
         plt.legend(loc="lower right")
@@ -283,6 +298,7 @@ def corr_teamPER_winRatio():
             plt.scatter(x, y, color=colormap[i], s=15)
             plt.text(x, y-0.01, type, fontsize=7)
 
+        # trendline
         trend = np.polyfit(x_data,y_data,1)
         trendpoly = np.poly1d(trend) 
         ax.plot(x_data,trendpoly(x_data), c='orange')
@@ -291,11 +307,12 @@ def corr_teamPER_winRatio():
         plt.ylabel('Win Ratio (Games Won / Total Games)')
         plt.xlabel('Team PER (log(Player PER * Player MP))')
 
-        
     plt.show()
 
 def ols_teamPER_winRatio():
-    """returns table of OLS metrics"""
+    """OLS summary table
+    Input: None (hardcoded filename)
+    Returns: Standardized Residuals {dict} used in qq_teamPER()"""
     df_teams = pd.read_csv('4_team_data_final.csv')
 
     stand_residual_dict = {}
@@ -312,6 +329,7 @@ def ols_teamPER_winRatio():
 
         # create instance of influence
         influence = results.get_influence()
+
         # residuals
         standardized_residuals = influence.resid_studentized_internal
         studentized_residuals = influence.resid_studentized_external
@@ -352,10 +370,11 @@ def huber_teamPER_winRatio():
         print(results.summary())
 
 def residuals_fitted_teamPER(constant, X1_coefficient, start_year):
-    """generates residual plot
-    Parameters:
-    * constant {float}
-    * 1 coefficient {float}
+    """Residual plot
+    Input Parameters:
+    * constant (intercept) {float}
+    * X1 coefficient {float}
+    * start_year - beginning year of season {int}
     """
     df_teams = pd.read_csv('4_team_data_final.csv')
 
@@ -364,8 +383,6 @@ def residuals_fitted_teamPER(constant, X1_coefficient, start_year):
     x_actual = list(ind_season['Win Ratio'])
     y_actual = list(ind_season['Team PER'])
     names = list(ind_season['Tm'])
-
-    
 
     # generating y-predicted values from regression model
     y_pred = []
@@ -412,13 +429,14 @@ def residuals_fitted_teamPER(constant, X1_coefficient, start_year):
 
     plt.show()
 
+# Values taken from OLS summary table
 # residuals_fitted_teamPER(12.3710, 0.6108, 2018) # 18-19
 # residuals_fitted_teamPER(12.4140, 0.5646, 2017) # 17-18
 # residuals_fitted_teamPER(12.4674, 0.4974, 2016) # 16-17
 
 def qq_teamPER():
     """normal Q-Q plot for standardized residuals for each season
-    standardized residuals come from ols_teamPER_winRatio()"""
+    Input: standardized residuals (ols_teamPER_winRatio()) {dict}"""
     stand_residual_dict = ols_teamPER_winRatio()
 
     for each in range(2016, 2019):
@@ -427,7 +445,11 @@ def qq_teamPER():
 
     plt.show()
 
-def future_test():
+def predict_OLS():
+    """Using previous seasons OLS coefficients for prediction
+    statsmodel library
+    Input: None (hardcoded filename)
+    Returns: Scatter plot"""
     df_teams = pd.read_csv('4_team_data_final.csv')
 
     # 2018 - 2019 Western
@@ -477,7 +499,11 @@ def future_test():
     plt.tight_layout()
     plt.show()
 
-
+def ml_lr():
+    """Machine Learning Regression
+    SciKit
+    """
+    pass
 
 
 

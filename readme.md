@@ -118,10 +118,13 @@ The summary of our linear model using Ordinary Least Squares indicated that our 
   <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/QQ_18-19.png?raw=true" width="290" />
 </p>
 
-### Potential Future Projections
-The linear models for the 2016-2017 and 2017-2018 were tested with 2018-2019 data to determine if there was any predictive power for win ratio in the following season. After the first 8 rankings, the residuals between actual win ratio and expected (both 2016-2017 and 2017-2018) increase dramatically. 
+### Prediction: OLS (StatsModel)
+The predictions from linear models generated for the 2016-2017 and 2017-2018 were tested against 2018-2019 data to determine if there was any predictive power for win ratio in the following season. After the first 8 rankings, the residuals between actual win ratio and expected (both 2016-2017 and 2017-2018) increase dramatically. 
 
 ![Pred_18-19](https://github.com/timmy224/NBA_Analysis/blob/master/images/Pred_18-19.png?raw=true)
+
+### Prediction: Machine Learning Regression (SciKit-Learn)
+**WIP**
 
 ## Discussion
 As soon with data from the last 3 seasons, there is a clear linear relationship between Team PER and win ratio. This relationship makes sense given that teams with higher PER should perform better, this win more games during the season. While our linear models were significant with supporting adjusted R^2 and F-statistic values from Wald test, there were outliers in our data. 

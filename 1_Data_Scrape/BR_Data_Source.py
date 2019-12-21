@@ -48,7 +48,6 @@ def Player_totals_Scrape():
 def Team_Scrape():
     """
     Gets team total stats from years 1999 to 2019 
-
     Output: {string} of comma-separated values
     """
     data = ''
@@ -79,14 +78,11 @@ def Team_Scrape():
 
         data += driver.find_element_by_id('csv_misc_stats').text + "\n"
 
-    print(data)
     return data
 
 def writeData():
     """ Takes string from ScrapeDate() function and adds it to a csv file 
-
-    Input: ScrapeData() {string}
-
+    Input: {string} from ScrapeData() 
     Output: CSV file 
     """
     f = StringIO(Player_totals_Scrape())

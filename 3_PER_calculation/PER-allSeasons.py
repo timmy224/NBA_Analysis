@@ -5,6 +5,10 @@ import statistics
 # Basketball reference scraped data differs from ESPN data
 # Team pace is different
 def PERCalculation():
+    """ Calculates Hollinger's Player Efficiency Rating
+    Input: None (hardcoded filename)
+    Output: CSV file
+    """
     df_players = pd.read_csv('BR_1998-2019-Regular-PlayerStats-edit.csv', index_col=0)
     df_teams = pd.read_csv('BR_1998-2019-Regular-TeamTotals-edit.csv')
 
@@ -169,7 +173,7 @@ def PERCalculation():
             PER_list.append(PER)
 
     df_players.insert(6, 'PER_calc', PER_list)
-    print(df_players)
+    #print(df_players)
     df_players.to_csv('PER_Calc.csv')
     
 PERCalculation()
