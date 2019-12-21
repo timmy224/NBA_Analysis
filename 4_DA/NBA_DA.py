@@ -415,8 +415,6 @@ def residuals_fitted_teamPER(constant, X1_coefficient, start_year):
 # residuals_fitted_teamPER(12.3710, 0.6108, 2018) # 18-19
 # residuals_fitted_teamPER(12.4140, 0.5646, 2017) # 17-18
 # residuals_fitted_teamPER(12.4674, 0.4974, 2016) # 16-17
-# residuals_fitted_teamPER(12.4639, 0.4199, 2015) # 15-16
-# residuals_fitted_teamPER(12.3928, 0.6228, 2014) # 14-15
 
 def qq_teamPER():
     """normal Q-Q plot for standardized residuals for each season
@@ -429,7 +427,46 @@ def qq_teamPER():
 
     plt.show()
 
+def future_test():
+    df_teams = pd.read_csv('4_team_data_final.csv')
 
+    # 2018 - 2019 Western
+    west_teams = df_teams[(df_teams['Season']=='2018-2019') & (df_teams['Conference']=='Western')]
+    y_18_west = west_teams['Team PER']
+    x_18_west = west_teams['Win Ratio']
+    names_west = west_teams['Tm']
+
+    # 2018-2019 Eastern
+    east_teams = df_teams[(df_teams['Season']=='2018-2019') & (df_teams['Conference']=='Eastern')]
+    y_18_east = east_teams['Team PER']
+    x_18_east = east_teams['Win Ratio']
+    names_east = east_teams['Tm']
+
+    x = df_teams[df_teams['Season']=='2018-2019']['Win Ratio']
+
+    y_16_pred = []
+    y_17_pred = []
+
+    for i in x:
+        res = 12.4674 + 0.4974 * i # 2016
+        y_16_pred.append(res)
+        res = 12.4140 + 0.5646 * i # 2017
+        y_17_pred.append(res)
+    
+    fig = plt.figure(figsize=(10, 8))
+    ax = plt.subplot(111)
+    ax.set_xmargin(0.05)
+    ax.set_ymargin(0.05)
+
+    plt.scatter(x_18_west, y_18_west, color='r', label='Western')
+    plt.scatter(x_18_east, y_18_east, color='b', label='Eastern')
+    plt.scatter(x, y_16_pred, color='c', label='2016 predicted')
+    plt.scatter(x, y_17_pred, color='m', label='2017 predicted')
+    plt.legend(loc="lower right")
+
+    plt.show()
+
+future_test()
 
 
 

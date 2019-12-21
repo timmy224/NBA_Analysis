@@ -11,10 +11,11 @@
 | Add readme, requirements      |    done   |
 | Calculate PER - all seasons   |    done   |
 | Preliminary methods           |    done   |
-| Exploratory data analysis     |  current  |
+| Data analysis                 |    done   |
+| Projections                   |  current  |
 | Write summary/abstract        |  current  | 
 | Organize files                |           |
-| Import into SQL db            |  revisit  |
+| Import into SQL db            |           |
 
 ## Introduction
 Basketball is an exciting sport supported by many years of data on its players and teams through the last 20+ years. Throughout history, team managements and statisticians have created various metrics to evaluate player impact on the court. One of these metrics, the Player Efficiency Rating, was developed by John Hollinger to help describe a player's accomplishments and failures on the court for a given season. The Player Efficiency Rating is a single value derived from a variety of offensive and defensive player statistics relative to his peers. For any given season an average player would have a PER value of 15, while a rating of close to 30 represents a player who is exceptional compared to his peers. 
@@ -117,17 +118,18 @@ The summary of our linear model using Ordinary Least Squares indicated that our 
   <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/QQ_18-19.png?raw=true" width="290" />
 </p>
 
-## Discussion and Future Projections
-### Outliers
+### Potential Future Projections
+The linear models for the 2016-2017 and 2017-2018 were tested with 2018-2019 data to determine if there was any predictive power for the next season. 
 
+IN PROGRESS
 
+## Discussion
+As soon with data from the last 3 seasons, there is a clear linear relationship between Team PER and win ratio. This relationship makes sense given that teams with higher PER should perform better, this win more games during the season. While our linear models were significant with supporting adjusted R^2 and F-statistic values from Wald test, there were outliers in our data. 
 
-## Future
+There can be many explanations for the outliers. For high PER teams that underperform, this may be caused by high PER players who play alot of minutes but do not consistently win games. This could be represented by teams that have one or two star players but a weak bench resulting in high effiency from those players, but a low win ratio. For low PER teams that overperform, this can be caused by the exact opposite where high performing players are aren't playing as much during a game but the bench players are. A scenario where this can occur is when a team has a good lead early in the game and star players are benched for injury prevention or rest for future games. 
 
-| Task List                     |   Status  | 
-|:------------------------------|:---------:|
-| Rewrite project in R          |           |
-| Tableau Visuals               |           |
+Overall, PER is not the best indicator for defensive statistics. As stated by John Hollinger, PER is not a reliable measure of defensive acumen as it only incorporates active stats such as blocks and steals which do not always explain a player's contribution to the team's defense. 
+
 
 ## Notes
 
@@ -146,3 +148,4 @@ The summary of our linear model using Ordinary Least Squares indicated that our 
 | New Orleans/Oklahoma City Hornets | 2005-2007 | NOK         |
 | New Orleans Hornets               | 2007-2013 | NOH         |
 | New Orleans Pelicans              | 2013-2019 | NOP         |
+
