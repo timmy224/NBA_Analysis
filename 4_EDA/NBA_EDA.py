@@ -24,7 +24,7 @@ def getTop12():
 
     return df_test
 
-def histSeasonPlayerPER():
+def hist_SeasonPlayerPER():
     """Frequency distribution for top 12 players of each team per season
 
     returns: histogram with of player PER across different season
@@ -60,7 +60,7 @@ def histSeasonPlayerPER():
         plt.yticks([10, 20, 30, 40, 50, 60, 70])
         plt.text(22, 50, 'mean: {}\nstd: {}'.format(mean_val, std_val), fontsize=8)
 
-def qqSeasonPlayerPER():
+def qq_SeasonPlayerPER():
     """Q-Q plot for player PER rating per season"""
     df_players = getTop12()
 
@@ -83,7 +83,7 @@ def qqSeasonPlayerPER():
 
         sm.qqplot(PER_values['{}-{}'.format(i, i+1)], line='q', ax=fig.add_subplot(3, 7, num), markersize=1)
 
-def boxPlayerPER():
+def boxplot_PlayerPER():
     """boxplot of player PER"""
     df_players = getTop12()
 
@@ -98,7 +98,7 @@ def boxPlayerPER():
     ax.set_title('PER For Different Basketball Positions',  fontsize=20)
     ax.set_ylabel('PER Value', fontsize=16)
 
-def boxcoxPlayerPER():
+def boxcox_PlayerPER():
     """Boxcox normality test for player PER"""
 
     df_players = getTop12()
@@ -412,9 +412,9 @@ def residuals_fitted_teamPER(constant, X1_coefficient, start_year):
 
     plt.show()
 
-residuals_fitted_teamPER(12.3710, 0.6108, 2018) # 18-19
-residuals_fitted_teamPER(12.4140, 0.5646, 2017) # 17-18
-residuals_fitted_teamPER(12.4674, 0.4974, 2016) # 16-17
+# residuals_fitted_teamPER(12.3710, 0.6108, 2018) # 18-19
+# residuals_fitted_teamPER(12.4140, 0.5646, 2017) # 17-18
+# residuals_fitted_teamPER(12.4674, 0.4974, 2016) # 16-17
 # residuals_fitted_teamPER(12.4639, 0.4199, 2015) # 15-16
 # residuals_fitted_teamPER(12.3928, 0.6228, 2014) # 14-15
 

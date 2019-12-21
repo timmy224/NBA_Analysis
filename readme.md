@@ -39,7 +39,7 @@ Webscrapers were built to gather data from Basketball Reference's and ESPN's web
 Note: PER generated from Basketball Reference's player and team data differs from the PER value taken from ESPN. Basketball Reference and ESPN have different PACE values. 
 
 ### Data Clean & Prep
-PER was calculated for all players from 1998 - 2019, but this project focused on the top 12 individuals of minutes played for each team. By taking only the top 12 minutes played players, this helps account for any roster changes or inactivity throughout the season due trades, injuries, etc.
+PER was calculated for all players from 1998 - 2019, but this project focused on the top 12 individuals of minutes played for each team. By taking only the top 12 minutes played (MP) players, this helps account for any roster changes or inactivity throughout the season due trades, injuries, etc.
 
 ### Player Efficiency Rating Formula 
 ```sh
@@ -74,6 +74,24 @@ When examining the distribution of PER for players across each season, we see th
 As a preliminary investigation, PER values for different positions were also examined. 
 ![Boxplot](https://github.com/timmy224/NBA_Analysis/blob/master/images/Boxplot_Pos_PER.png?raw=true)
 All of the PER for different positions seem similar to each other with extreme PER values in the upper range.
+
+For the simplicity of this personal project, only the last 3 seasons were used to investigate whether team PER correlated with win ratio. 
+
+Team PER was calculated by taking the PERs of the top 12 MP players and multiplying it with their respective minutes played. PER is a per-minute rating so by multiplying it with minutes played, it gives players with more minutes played more weight in the team PER value. If a high PER player doesn't play as many minutes, he may not contribute as much to team PER relative to a teammate who has average PER but has played a higher number of minutes. 
+
+Because preliminary data showed that our data was heteroscedastic, a BoxCox test and transformation was applied to team PER values to make it more homoscedastic. BoxCox test returned a lambda of 0.5456632512114474, which corresponds to a log transformation of the data. 
+
+### Regular Season 2018 - 2019
+When looking at last season (complete season data), there is a strong correlative relationship between Team PER and Win Ratio. 
+![Corr_2018-2019](https://github.com/timmy224/NBA_Analysis/blob/master/images/Corr_18-19.png?raw=true)
+With teams belonging to different conferences indicated, it can see that the Western Conference has a cluster of teams with high team PER and win ratio.
+
+The summary of our linear model using Ordinary Least Squares (OLS) indicated that our model had an adjusted R^2 of 0.722 and significant according to F-statistics from Wald test. 
+![OLS_2018-2019](https://github.com/timmy224/NBA_Analysis/blob/master/images/OLS_18-19.png?raw=true)
+
+Besides Memphis Grizzlies, the residuals appear to be random and dispersed, thus supporting our model. Omitting the Grizzlies would suggest a better model can be generated for our given data.
+![Residuals_2018-2019](https://github.com/timmy224/NBA_Analysis/blob/master/images/Residual_18-19.png?raw=true)
+![Q-Q_2018-2019](https://github.com/timmy224/NBA_Analysis/blob/master/images/QQ_18-19.png?raw=true)
 
 
 
