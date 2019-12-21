@@ -293,7 +293,7 @@ def corr_teamPER_winRatio():
 
         
     plt.show()
-corr_teamPER_winRatio()
+
 def ols_teamPER_winRatio():
     """returns table of OLS metrics"""
     df_teams = pd.read_csv('4_team_data_final.csv')
@@ -477,7 +477,6 @@ def future_test():
     plt.tight_layout()
     plt.show()
 
-future_test()
 
 
 
