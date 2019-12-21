@@ -1,5 +1,4 @@
 """ Grabs individual player stats from Basketball-Reference.com """
-
 from selenium import webdriver
 from selenium.webdriver import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
@@ -8,7 +7,7 @@ import csv
 
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument('--incognito')
-#chrome_options.add_argument('--headless')
+chrome_options.add_argument('--headless')
 
 driver = webdriver.Chrome(options=chrome_options)
 action = ActionChains(driver)
