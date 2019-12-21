@@ -87,12 +87,12 @@ When looking at last season (complete season data), there is a strong correlativ
 With teams belonging to different conferences indicated, it can see that the Western Conference has a cluster of teams with high team PER and win ratio.
 
 The summary of our linear model using Ordinary Least Squares (OLS) indicated that our model had an adjusted R^2 of 0.722 and significant according to F-statistics from Wald test. 
-![OLS_2018-2019](https://github.com/timmy224/NBA_Analysis/blob/master/images/OLS_18-19.png?raw=true=20x20){:height="50%" width="50%"}
+![OLS_2018-2019](https://github.com/timmy224/NBA_Analysis/blob/master/images/OLS_18-19.png?raw=true=20x20)
 
 
 Besides Memphis Grizzlies, the residuals appear to be random and dispersed, thus supporting our model. Omitting the Grizzlies would suggest a better model can be generated for our given data.
-![Residuals_2018-2019](https://github.com/timmy224/NBA_Analysis/blob/master/images/Residual_18-19.png?raw=true)
-![Q-Q_2018-2019](https://github.com/timmy224/NBA_Analysis/blob/master/images/QQ_18-19.png?raw=true)
+![Residuals_2018-2019](https://github.com/timmy224/NBA_Analysis/blob/master/images/Residual_18-19.png?raw=true){:height="50%" width="50%"}
+![Q-Q_2018-2019](https://github.com/timmy224/NBA_Analysis/blob/master/images/QQ_18-19.png?raw=true){:height="50%" width="50%"}
 
 ### Regular Season 2017 - 2018 
 ### Regular Season 2016 - 2019 
