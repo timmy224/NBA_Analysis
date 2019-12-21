@@ -126,6 +126,9 @@ The predictions from linear models generated for the 2016-2017 and 2017-2018 wer
 ### Prediction: Machine Learning Regression (SciKit-Learn)
 **WIP**
 
+### Prediction: Summary
+Discuss post-season predictions
+
 ## Discussion
 As soon with data from the last 3 seasons, there is a clear linear relationship between Team PER and win ratio. This relationship makes sense given that teams with higher PER should perform better, this win more games during the season. While our linear models were significant with supporting adjusted R^2 and F-statistic values from Wald test, there were outliers in our data. 
 
