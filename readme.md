@@ -42,7 +42,7 @@ Note: PER generated from Basketball Reference's player and team data differs fro
 PER was calculated for all players from 1998 - 2019, but this project focused on the top 12 individuals of minutes played for each team. By taking only the top 12 minutes played (MP) players, this helps account for any roster changes or inactivity throughout the season due trades, injuries, etc.
 
 ### Player Efficiency Rating Formula 
-```sh
+```
 uPER = (1 / MP) *
      [ 3P
      + (2/3) * AST
@@ -89,9 +89,9 @@ With teams belonging to different conferences indicated, we can see that the Wes
 The summary of our linear model using Ordinary Least Squares indicated that our model had an adjusted R^2 of 0.722 and significant according to F-statistics from Wald test. Besides Memphis Grizzlies, the residuals appear to be random and dispersed, thus supporting our model. Omitting the Grizzlies would suggest a better model can be generated for our given data.
 
 <p float="center">
-  <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/OLS_18-19.png?raw=true" width="280" />
-  <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/Residual_18-19.png?raw=true" width="280" /> 
-  <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/QQ_18-19.png?raw=true" width="280" />
+  <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/OLS_18-19.png?raw=true" width="290" />
+  <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/Residual_18-19.png?raw=true" width="290" /> 
+  <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/QQ_18-19.png?raw=true" width="290" />
 </p>
 
 ### Regular Season 2017 - 2018 
