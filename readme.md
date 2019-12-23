@@ -112,6 +112,7 @@ Despite the different fits of linear models to previous season data, they were u
 ### Top 16 teams 
 Using the linear regression generated from data of 2017 - 2018, 10 out of 16 (62.5%) teams were correctly predicted to qualify for playoffs using the 2017-2018 model (bolded team abbreviations were not predicted).  
 
+<center>
 ####                        Eastern Conference                     
 |      Actual  2018 - 2019      |  Prediction 16-17, 17-18 model  |
 |:-----------------------------:|:-------------------------------:|
@@ -136,6 +137,7 @@ Using the linear regression generated from data of 2017 - 2018, 10 out of 16 (62
 |              SAS              |                UTA              |
 |            **LAC**            |              **MIN**            |
 
+</center>
 
 ## Discussion
 As seen with data from the last 3 seasons, there is a clear linear relationship between Team PER and win ratio. This relationship makes sense given that teams with higher PER should perform better, thus win more games during the season. While our linear models were significant with supporting adjusted R^2 and F-statistic values from Wald test, there were outliers in our data, thus increasing the variability in our model. While team PER from the previous season can predict the majority of teams that will make the playoffs the subsequent season, it isn't reliable with a 62.5% accuracy.
