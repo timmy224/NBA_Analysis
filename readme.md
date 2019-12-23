@@ -113,6 +113,7 @@ Despite the different fits of linear models to previous season data, they were u
 Using the linear regression generated from data of 2017 - 2018, 10 out of 16 (62.5%) teams were correctly predicted to qualify for playoffs using the 2017-2018 model (bolded team abbreviations were not predicted).  
 
 <center>
+
 ####                        Eastern Conference                     
 |      Actual  2018 - 2019      |  Prediction 16-17, 17-18 model  |
 |:-----------------------------:|:-------------------------------:|
