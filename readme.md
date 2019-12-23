@@ -1,22 +1,5 @@
 # NBA Analysis - In Progress
 
-## Priority
-| Task List                     |   Status  | 
-|:------------------------------|:---------:|
-| Scrape data - BR              |    done   |
-| Clean data - BR               |    done   |
-| Scrape data - ESPN            |    done   |
-| Clean data - ESPN             |    done   |
-| Calculate PER - initial check |    done   |
-| Add readme, requirements      |    done   |
-| Calculate PER - all seasons   |    done   |
-| Preliminary methods           |    done   |
-| Data analysis                 |    done   |
-| Projections                   |    done   |
-| Write summary/abstract        |  current  | 
-| Organize files                |           |
-| Import into SQL db            |           |
-
 ## Introduction
 Basketball is an exciting sport with many years of recorded data on its players and teams throughout the last 20+ years. In its history, team managements and statisticians have created various metrics to evaluate player impact on the court. One of these metrics, the Player Efficiency Rating, was developed by John Hollinger to help describe a player's accomplishments and failures on the court for a given season. The Player Efficiency Rating is a single value derived from a variety of offensive and defensive player statistics relative to his peers. For any given season, an average player will have a PER value of 15, while a rating of close to 30 represents a player who is exceptional compared to his peers. 
 
@@ -129,7 +112,7 @@ Despite the different fits of linear models to previous season data, they were u
 ### Top 16 teams 
 Using the linear regression generated from data of 2017 - 2018, 10 out of 16 (62.5%) teams were correctly predicted to qualify for playoffs using the 2017-2018 model (bolded team abbreviations were not predicted).  
 
-|:                        Eastern Conference                     :|
+|                         Eastern Conference                      |
 |:     Actual  2018 - 2019     :|: Prediction 16-17, 17-18 model :|
 |:-----------------------------:|:-------------------------------:|
 |:             MIL             :|:               BOS             :| 
@@ -141,7 +124,7 @@ Using the linear regression generated from data of 2017 - 2018, 10 out of 16 (62
 |:             ORL             :|:              *MIA*            :|
 |:            *DET*            :|:               BRK             :|
 
-|:                        Western Conference                     :|
+|                         Western Conference                      |
 |:     Actual  2018 - 2019     :|: Prediction 16-17, 17-18 model :|
 |:-----------------------------:|:-------------------------------:|
 |:             GSW             :|:               GSW             :|
@@ -163,6 +146,24 @@ Overall, PER may not be the best indicator for defensive statistics. As stated b
 
 ## Future Directions
 Because PER is a metric that involves many basketball statistics, I'd like to do a machine learning project that uses player stats, instead of PER, across seasons to determine which stat(s) can give the best prediction for win ratio and playoff appearance. 
+
+## Priority
+| Task List                     |   Status  | 
+|:------------------------------|:---------:|
+| Scrape data - BR              |    done   |
+| Clean data - BR               |    done   |
+| Scrape data - ESPN            |    done   |
+| Clean data - ESPN             |    done   |
+| Calculate PER - initial check |    done   |
+| Add readme, requirements      |    done   |
+| Calculate PER - all seasons   |    done   |
+| Preliminary methods           |    done   |
+| Data analysis                 |    done   |
+| Projections                   |    done   |
+| Write summary/abstract        |    done   | 
+| Organize files                |    done   |
+| Update requirements           |           |
+| Import into SQL db            |           |
 
 ## Notes
 
