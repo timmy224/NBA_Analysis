@@ -113,28 +113,28 @@ Despite the different fits of linear models to previous season data, they were u
 Using the linear regression generated from data of 2017 - 2018, 10 out of 16 (62.5%) teams were correctly predicted to qualify for playoffs using the 2017-2018 model (bolded team abbreviations were not predicted).  
 
 |                         Eastern Conference                      |
-|:     Actual  2018 - 2019     :|: Prediction 16-17, 17-18 model :|
+|      Actual  2018 - 2019      |  Prediction 16-17, 17-18 model  |
 |:-----------------------------:|:-------------------------------:|
-|:             MIL             :|:               BOS             :| 
-|:             TOR             :|:               MIL             :|
-|:            *PHI*            :|:               TOR             :|
-|:             BOS             :|:               IND             :|
-|:             IND             :|:               ORL             :|
-|:             BRK             :|:              *CHO*            :|
-|:             ORL             :|:              *MIA*            :|
-|:            *DET*            :|:               BRK             :|
+|              MIL              |                BOS              | 
+|              TOR              |                MIL              |
+|             *PHI*             |                TOR              |
+|              BOS              |                IND              |
+|              IND              |                ORL              |
+|              BRK              |               *CHO*             |
+|              ORL              |               *MIA*             |
+|             *DET*             |                BRK              | 
 
 |                         Western Conference                      |
-|:     Actual  2018 - 2019     :|: Prediction 16-17, 17-18 model :|
+|      Actual  2018 - 2019      |  Prediction 16-17, 17-18 model  |
 |:-----------------------------:|:-------------------------------:|
-|:             GSW             :|:               GSW             :|
-|:             DEN             :|:               SAS             :|
-|:             POR             :|:               DEN             :|
-|:             HOU             :|:               HOU             :|
-|:             UTA             :|:               POR             :|
-|:             OKC             :|:               OKC             :|
-|:             SAS             :|:               UTA             :|
-|:            *LAC*            :|:              *MIN*            :|
+|              GSW              |                GSW              |
+|              DEN              |                SAS              |
+|              POR              |                DEN              |
+|              HOU              |                HOU              |
+|              UTA              |                POR              |
+|              OKC              |                OKC              |
+|              SAS              |                UTA              |
+|             *LAC*             |               *MIN*             |
 
 
 ## Discussion
