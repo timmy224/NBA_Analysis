@@ -18,9 +18,9 @@
 | Import into SQL db            |           |
 
 ## Introduction
-Basketball is an exciting sport supported by many years of data on its players and teams through the last 20+ years. Throughout history, team managements and statisticians have created various metrics to evaluate player impact on the court. One of these metrics, the Player Efficiency Rating, was developed by John Hollinger to help describe a player's accomplishments and failures on the court for a given season. The Player Efficiency Rating is a single value derived from a variety of offensive and defensive player statistics relative to his peers. For any given season an average player would have a PER value of 15, while a rating of close to 30 represents a player who is exceptional compared to his peers. 
+Basketball is an exciting sport with many years of recorded data on its players and teams throughout the last 20+ years. In its history, team managements and statisticians have created various metrics to evaluate player impact on the court. One of these metrics, the Player Efficiency Rating, was developed by John Hollinger to help describe a player's accomplishments and failures on the court for a given season. The Player Efficiency Rating is a single value derived from a variety of offensive and defensive player statistics relative to his peers. For any given season, an average player will have a PER value of 15, while a rating of close to 30 represents a player who is exceptional compared to his peers. 
 
-Currently, 30 NBA teams across two conferences play 82 games during the regular season hoping to qualify for one of 16 spots in the NBA playoffs. To earn a spot for the post-season, teams must have a win ratio above 0.5 and be in the top 8 for their respective conferences. Although PER is a good metric to quantify an individual player's ability on the court, it doesn't capture an entire team's ability. This project aims to investigate whether PER ratings of players correlate with their team's win ratio and therefore a predictive of a playoff spot.  
+Currently, 30 NBA teams across two conferences play 82 games during the regular season hoping to qualify for one of 16 spots in the NBA playoffs. To earn a spot for the post-season, teams must have a win ratio above 0.5 and be in the top 8 of their respective conferences. Although PER is a good metric to quantify an individual player's ability on the court, it doesn't capture an entire team's ability. This project aims to determine whether PER ratings of players correlate with their team's win ratio and if it can be predictive of a playoff spot.  
 
 
 ## Questions
@@ -88,7 +88,8 @@ All of the PER for different positions seem similar to each other with extreme P
 There is a distinct linear trend when examining the correlation between Team PER and win ratio. When comparing teams belonging to different conferences, the Western Conference comparatively has stronger teams indicated by the cluster representing high team PER and win ratio. 
 ![Corr_2016-2017](https://github.com/timmy224/NBA_Analysis/blob/master/images/Corr_16-17.png?raw=true) 
 
-The summary of our linear model shows an adjusted R^2 of 0.633 and a significant F-statistic. However, when evaluating our model with residuals, we can see there are extreme residuals (especially Minnesota Timberwolves) with an overestimation for lower team PER. Extreme deviations at the tails will skew as observed in the Q-Q plot. 
+The summary of our linear model showed an adjusted R^2 of 0.633 and a significant F-statistic. However, when evaluating our model with residuals, we can see there are extreme residuals (especially Minnesota Timberwolves) with an overestimation for lower team PER. Our probability value for Omnibus is low which supports that residuals are not normally distributed. Extreme deviations at the tails will skew distribution as observed in the Q-Q plot. 
+
 <p float="center">
   <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/OLS_16-17.png?raw=true" width="290" />
   <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/Residual_16-17.png?raw=true" width="290" /> 
@@ -99,7 +100,8 @@ The summary of our linear model shows an adjusted R^2 of 0.633 and a significant
 In the 2017-2018 regular season, we can see that the Golden State Warriors are no longer the team with the highest PER. The Houston Rockets, Toronto Raptors, and Minnesota Timberwolves appear to have similar team PER, but different win ratios. As observed again, the Western Conference shows a strong correlation for having teams with higher PER and win ratio with a larger cluster in the upright portion of the graph. 
 ![Corr_2017-2018](https://github.com/timmy224/NBA_Analysis/blob/master/images/Corr_17-18.png?raw=true) 
 
-There is an improved linear model with an adjusted R^2 of 0.711 and significant F-statistic explaining the variability in data. Despite an improved random pattern in our residuals plot, there are clear outliers in our data as represented by Phoenix, Memphis, Boston, and Minnesota. According to the Q-Q plot, there seems to be fewer deviations from the predicted team PER values relative to the previous season. 
+There is an improvement for this season's linear model with an adjusted R^2 of 0.711 and significant F-statistic explaining the variability in data. Despite an improved probability for Omnibus (0.909)  and random pattern in our residuals plot, there are clear outliers in our data as represented by Phoenix, Memphis, Boston, and Minnesota teams. According to the Q-Q plot, there seems to be fewer deviations from the predicted team PER values relative to the previous season. 
+
 <p float="center">
   <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/OLS_17-18.png?raw=true" width="290" />
   <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/Residual_17-18.png?raw=true" width="290" /> 
@@ -110,7 +112,7 @@ There is an improved linear model with an adjusted R^2 of 0.711 and significant 
 Compared to the previous season, the Memphis Grizzlies and Phoenix Suns deviate from this linear model with the Memphis Grizzlies having a higher win ratio with similar Team PER, and the Pheonix Suns having similar win ratio and Team PER.
 ![Corr_2018-2019](https://github.com/timmy224/NBA_Analysis/blob/master/images/Corr_18-19.png?raw=true)
  
-The summary of our linear model using Ordinary Least Squares indicated that our model had an adjusted R^2 of 0.722 and significant according to F-statistics from Wald test. Besides Memphis Grizzlies, the residuals appear to be random and dispersed, thus supporting our model. 
+The summary of our linear model indicated that our model had an adjusted R^2 of 0.722 and significant according to F-statistics. The residuals do not appear to be randomly dispersed with a low Omnibus probability value of 0.081 indicating our residuals are not normally distributed. There is also moderate skew as indicated by the skew value of -0.816 and Q-Q plot. 
 
 <p float="center">
   <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/OLS_18-19.png?raw=true" width="290" />
@@ -118,24 +120,49 @@ The summary of our linear model using Ordinary Least Squares indicated that our 
   <img src="https://github.com/timmy224/NBA_Analysis/blob/master/images/QQ_18-19.png?raw=true" width="290" />
 </p>
 
+
 ### Prediction: OLS (StatsModel)
-The predictions from linear models generated for the 2016-2017 and 2017-2018 were tested against 2018-2019 data to determine if there was any predictive power for win ratio in the following season. After the first 8 rankings, the residuals between actual win ratio and expected (both 2016-2017 and 2017-2018) increase dramatically. 
+Despite the different fits of linear models to previous season data, they were used to test against 2018-2019 data to determine if Team PER can be used to predict win ratio in the following season. When looking at the following graph, after the first 10 rankings, the residuals between (both 2016-2017 and 2017-2018) increase dramatically. 
 
 ![Pred_18-19](https://github.com/timmy224/NBA_Analysis/blob/master/images/Pred_18-19.png?raw=true)
 
-### Prediction: Machine Learning Regression (SciKit-Learn)
-**WIP**
+### Top 16 teams 
+Using the linear regression generated from data of 2017 - 2018, 10 out of 16 (62.5%) teams were correctly predicted to qualify for playoffs using the 2017-2018 model (bolded team abbreviations were not predicted).  
 
-### Prediction: Summary
-Discuss post-season predictions
+|:                        Eastern Conference                     :|
+|:     Actual  2018 - 2019     :|: Prediction 16-17, 17-18 model :|
+|:-----------------------------:|:-------------------------------:|
+|:             MIL             :|:               BOS             :| 
+|:             TOR             :|:               MIL             :|
+|:            *PHI*            :|:               TOR             :|
+|:             BOS             :|:               IND             :|
+|:             IND             :|:               ORL             :|
+|:             BRK             :|:              *CHO*            :|
+|:             ORL             :|:              *MIA*            :|
+|:            *DET*            :|:               BRK             :|
+
+|:                        Western Conference                     :|
+|:     Actual  2018 - 2019     :|: Prediction 16-17, 17-18 model :|
+|:-----------------------------:|:-------------------------------:|
+|:             GSW             :|:               GSW             :|
+|:             DEN             :|:               SAS             :|
+|:             POR             :|:               DEN             :|
+|:             HOU             :|:               HOU             :|
+|:             UTA             :|:               POR             :|
+|:             OKC             :|:               OKC             :|
+|:             SAS             :|:               UTA             :|
+|:            *LAC*            :|:              *MIN*            :|
+
 
 ## Discussion
-As soon with data from the last 3 seasons, there is a clear linear relationship between Team PER and win ratio. This relationship makes sense given that teams with higher PER should perform better, this win more games during the season. While our linear models were significant with supporting adjusted R^2 and F-statistic values from Wald test, there were outliers in our data. 
+As seen with data from the last 3 seasons, there is a clear linear relationship between Team PER and win ratio. This relationship makes sense given that teams with higher PER should perform better, thus win more games during the season. While our linear models were significant with supporting adjusted R^2 and F-statistic values from Wald test, there were outliers in our data, thus increasing the variability in our model. While team PER from the previous season can predict the majority of teams that will make the playoffs the subsequent season, it isn't reliable with a 62.5% accuracy.
 
 There can be many explanations for the outliers. For high PER teams that underperform, this may be caused by high PER players who play alot of minutes but do not consistently win games. This could be represented by teams that have one or two star players but a weak bench resulting in high effiency from those players, but a low win ratio. For low PER teams that overperform, this can be caused by the exact opposite where high performing players are aren't playing as much during a game but the bench players are. A scenario where this can occur is when a team has a good lead early in the game and star players are benched for injury prevention or rest for future games. 
 
-Overall, PER is not the best indicator for defensive statistics. As stated by John Hollinger, PER is not a reliable measure of defensive acumen as it only incorporates active stats such as blocks and steals which do not always explain a player's contribution to the team's defense. 
+Overall, PER may not be the best indicator for defensive statistics. As stated by John Hollinger, PER is not a reliable measure of defensive acumen as it only incorporates active stats such as blocks and steals which do not always explain a player's contribution to the team's defense. By incorporating another metric that better describes a player's defensive performance, we may reduce unexplained variability in our model. 
 
+## Future Directions
+Because PER is a metric that involves many basketball statistics, I'd like to do a machine learning project that uses player stats, instead of PER, across seasons to determine which stat(s) can give the best prediction for win ratio and playoff appearance. 
 
 ## Notes
 

@@ -445,11 +445,11 @@ def qq_teamPER():
 
     plt.show()
 
-def predict_OLS():
+def statsModel_OLS():
     """Using previous seasons OLS coefficients for prediction
     statsmodel library
     Input: None (hardcoded filename)
-    Returns: Scatter plot"""
+    Returns: graph """
     df_teams = pd.read_csv('4_team_data_final.csv')
 
     # 2018 - 2019 Western
@@ -464,7 +464,7 @@ def predict_OLS():
     x_18_east = list(east_teams['Rk'])
     names_east = east_teams['Tm']
 
-    rk = df_teams[df_teams['Season']=='2018-2019']['Rk']
+    rk = list(df_teams[df_teams['Season']=='2018-2019']['Rk'])
     teamPER_pred = df_teams[df_teams['Season']=='2018-2019']['Team PER']
 
     winR_16_pred = []
@@ -499,11 +499,18 @@ def predict_OLS():
     plt.tight_layout()
     plt.show()
 
-def ml_lr():
-    """Machine Learning Regression
-    SciKit
-    """
-    pass
+    conf = list(df_teams[df_teams['Season']=='2018-2019']['Conference'])
+    names_2018 = list(df_teams[df_teams['Season']=='2018-2019']['Tm'])
+    winR_18 = list(df_teams[df_teams['Season']=='2018-2019']['Win Ratio'])
+
+    pred_rankings = pd.DataFrame([conf, names_2018, rk, winR_18, winR_17_pred, winR_16_pred])
+    pred_rankings = pred_rankings.transpose()
+    pred_rankings.columns = ['Conference', 'Tm', '2018 Rk', '2018 WR', 'Pred 2017 WR', 'Pred 2016 WR']
+
+    pred_rankings.to_csv('5_winR_predictions.csv')
+    
+statsModel_OLS()
+    
 
 
 

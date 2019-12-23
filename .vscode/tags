@@ -1,0 +1,70 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+ActionChains	../1_Data_Scrape/BR_Data_Source.py	/^from selenium.webdriver import ActionChains$/;"	kind:namespace	line:3
+ActionChains	../1_Data_Scrape/ESPN_Data_Scrape.py	/^from selenium.webdriver import ActionChains$/;"	kind:namespace	line:3
+BR_Data_Clean.py	../2_Data_Clean/BR_Data_Clean.py	1;"	kind:file	line:1
+BR_Data_Source.py	../1_Data_Scrape/BR_Data_Source.py	1;"	kind:file	line:1
+BeautifulSoup	../1_Data_Scrape/ESPN_Data_Scrape.py	/^from bs4 import BeautifulSoup$/;"	kind:namespace	line:1
+ESPN_Data_Clean.py	../2_Data_Clean/ESPN_Data_Clean.py	1;"	kind:file	line:1
+ESPN_Data_Scrape.py	../1_Data_Scrape/ESPN_Data_Scrape.py	1;"	kind:file	line:1
+NBA_DA.py	../4_DA/NBA_DA.py	1;"	kind:file	line:1
+PER-allSeasons.py	../3_PER_calculation/PER-allSeasons.py	1;"	kind:file	line:1
+PERCalculation	../3_PER_calculation/PER-allSeasons.py	/^def PERCalculation():$/;"	kind:function	line:7
+Player_Totals_Clean	../2_Data_Clean/BR_Data_Clean.py	/^def Player_Totals_Clean():$/;"	kind:function	line:5
+Player_data	../1_Data_Scrape/ESPN_Data_Scrape.py	/^def Player_data(): $/;"	kind:function	line:17
+Player_totals_Scrape	../1_Data_Scrape/BR_Data_Source.py	/^def Player_totals_Scrape():$/;"	kind:function	line:15
+StringIO	../1_Data_Scrape/BR_Data_Source.py	/^from io import StringIO$/;"	kind:namespace	line:5
+StringIO	../1_Data_Scrape/ESPN_Data_Scrape.py	/^from io import StringIO$/;"	kind:namespace	line:5
+Team_Scrape	../1_Data_Scrape/BR_Data_Source.py	/^def Team_Scrape():$/;"	kind:function	line:47
+Team_Totals_Clean	../2_Data_Clean/BR_Data_Clean.py	/^def Team_Totals_Clean():$/;"	kind:function	line:64
+WebDriverWait	../1_Data_Scrape/BR_Data_Source.py	/^from selenium.webdriver.support.ui import WebDriverWait$/;"	kind:namespace	line:4
+WebDriverWait	../1_Data_Scrape/ESPN_Data_Scrape.py	/^from selenium.webdriver.support.ui import WebDriverWait$/;"	kind:namespace	line:4
+action	../1_Data_Scrape/BR_Data_Source.py	/^action = ActionChains(driver)$/;"	kind:variable	line:13
+action	../1_Data_Scrape/ESPN_Data_Scrape.py	/^action = ActionChains(driver)$/;"	kind:variable	line:15
+boxcox_PlayerPER	../4_DA/NBA_DA.py	/^def boxcox_PlayerPER():$/;"	kind:function	line:110
+boxplot_PlayerPER	../4_DA/NBA_DA.py	/^def boxplot_PlayerPER():$/;"	kind:function	line:91
+chrome_options	../1_Data_Scrape/BR_Data_Source.py	/^chrome_options = webdriver.ChromeOptions()$/;"	kind:variable	line:8
+chrome_options	../1_Data_Scrape/ESPN_Data_Scrape.py	/^chrome_options = webdriver.ChromeOptions()$/;"	kind:variable	line:10
+corr_teamPER_winRatio	../4_DA/NBA_DA.py	/^def corr_teamPER_winRatio():$/;"	kind:function	line:265
+csv	../1_Data_Scrape/BR_Data_Source.py	/^import csv$/;"	kind:namespace	line:6
+csv	../1_Data_Scrape/ESPN_Data_Scrape.py	/^import csv$/;"	kind:namespace	line:6
+csv	../2_Data_Clean/ESPN_Data_Clean.py	/^import csv $/;"	kind:namespace	line:3
+dataClean	../2_Data_Clean/ESPN_Data_Clean.py	/^def dataClean():$/;"	kind:function	line:5
+driver	../1_Data_Scrape/BR_Data_Source.py	/^driver = webdriver.Chrome(options=chrome_options)$/;"	kind:variable	line:12
+driver	../1_Data_Scrape/ESPN_Data_Scrape.py	/^driver = webdriver.Chrome(options=chrome_options)$/;"	kind:variable	line:14
+formula	../4_DA/NBA_DA.py	/^import statsmodels.formula.api as smf$/;"	kind:namespace	line:4
+getTop12	../4_DA/NBA_DA.py	/^def getTop12():$/;"	kind:function	line:9
+glm_teamPER_winRatio	../4_DA/NBA_DA.py	/^def glm_teamPER_winRatio():$/;"	kind:function	line:343
+hist_SeasonPlayerPER	../4_DA/NBA_DA.py	/^def hist_SeasonPlayerPER():$/;"	kind:function	line:26
+huber_teamPER_winRatio	../4_DA/NBA_DA.py	/^def huber_teamPER_winRatio():$/;"	kind:function	line:358
+matplotlib	../4_DA/NBA_DA.py	/^import matplotlib.pyplot as plt$/;"	kind:namespace	line:6
+np	../2_Data_Clean/BR_Data_Clean.py	/^import numpy as np $/;"	kind:namespace	line:3
+np	../2_Data_Clean/ESPN_Data_Clean.py	/^import numpy as np$/;"	kind:namespace	line:2
+np	../4_DA/NBA_DA.py	/^import numpy as np $/;"	kind:namespace	line:2
+ols_teamPER_winRatio	../4_DA/NBA_DA.py	/^def ols_teamPER_winRatio():$/;"	kind:function	line:313
+pd	../2_Data_Clean/BR_Data_Clean.py	/^import pandas as pd $/;"	kind:namespace	line:2
+pd	../2_Data_Clean/ESPN_Data_Clean.py	/^import pandas as pd$/;"	kind:namespace	line:1
+pd	../3_PER_calculation/PER-allSeasons.py	/^import pandas as pd$/;"	kind:namespace	line:1
+pd	../4_DA/NBA_DA.py	/^import pandas as pd $/;"	kind:namespace	line:1
+plt	../4_DA/NBA_DA.py	/^import matplotlib.pyplot as plt$/;"	kind:namespace	line:6
+qq_SeasonPlayerPER	../4_DA/NBA_DA.py	/^def qq_SeasonPlayerPER():$/;"	kind:function	line:64
+qq_teamPER	../4_DA/NBA_DA.py	/^def qq_teamPER():$/;"	kind:function	line:438
+residuals_fitted_teamPER	../4_DA/NBA_DA.py	/^def residuals_fitted_teamPER(constant, X1_coefficient, start_year):$/;"	kind:function	line:373
+sm	../4_DA/NBA_DA.py	/^import statsmodels.api as sm$/;"	kind:namespace	line:5
+smf	../4_DA/NBA_DA.py	/^import statsmodels.formula.api as smf$/;"	kind:namespace	line:4
+statistics	../3_PER_calculation/PER-allSeasons.py	/^import statistics $/;"	kind:namespace	line:2
+stats	../4_DA/NBA_DA.py	/^from scipy import stats$/;"	kind:namespace	line:3
+statsModel_OLS	../4_DA/NBA_DA.py	/^def statsModel_OLS():$/;"	kind:function	line:449
+statsmodels	../4_DA/NBA_DA.py	/^import statsmodels.api as sm$/;"	kind:namespace	line:5
+statsmodels	../4_DA/NBA_DA.py	/^import statsmodels.formula.api as smf$/;"	kind:namespace	line:4
+teamPER_calc	../4_DA/NBA_DA.py	/^def teamPER_calc():$/;"	kind:function	line:129
+teamPER_winRatio	../4_DA/NBA_DA.py	/^def teamPER_winRatio():$/;"	kind:function	line:219
+teamRatio_calc	../4_DA/NBA_DA.py	/^def teamRatio_calc():$/;"	kind:function	line:145
+time	../1_Data_Scrape/ESPN_Data_Scrape.py	/^import time$/;"	kind:namespace	line:7
+webdriver	../1_Data_Scrape/BR_Data_Source.py	/^from selenium import webdriver$/;"	kind:namespace	line:2
+webdriver	../1_Data_Scrape/ESPN_Data_Scrape.py	/^from selenium import webdriver$/;"	kind:namespace	line:2
+writeData	../1_Data_Scrape/BR_Data_Source.py	/^def writeData():$/;"	kind:function	line:82
