@@ -3,7 +3,7 @@
 ## Description
 Examined the relationship between calculated team PER and win ratio, and potential forecasting for playoff qualification using regression analysis with OLS method. 
 
-[![Tableau Supplement](https://public.tableau.com/views/NBAPERPredictionandTeamContribution/Dashboard1?:display_count=y&publish=yes&:origin=viz_share_link)](https://github.com/timmy224/NBA_Analysis/blob/master/images/Tableau_thumb.png?raw=true)
+** Tableau Supplement at end **
 
 ## Introduction
 Basketball is an exciting sport with many years of recorded data on its players and teams throughout the last 20+ years. In its history, team managements and statisticians have created various metrics to evaluate player impact on the court. One of these metrics, the Player Efficiency Rating, was developed by John Hollinger to help describe a player's accomplishments and failures on the court for a given season. The Player Efficiency Rating is a single value derived from a variety of offensive and defensive player statistics relative to his peers. For any given season, an average player will have a PER value of 15, while a rating of close to 30 represents a player who is exceptional compared to his peers. 
@@ -150,6 +150,8 @@ Overall, PER may not be the best indicator for defensive statistics. As stated b
 
 ## Future Directions
 Because PER is a metric that involves many basketball statistics, I'd like to conduct a multivariate regression analysis using player stats, instead of derived metric PER, across seasons to determine whether we can get a better predictive model than linear regression for win ratio and playoff qualification. 
+
+<a href="https://github.com/timmy224/NBA_Analysis/blob/master/images/Tableau_thumb.png?raw=true" rel="some text">![Foo](https://public.tableau.com/views/NBAPERPredictionandTeamContribution/Dashboard1?:display_count=y&publish=yes&:origin=viz_share_link)</a>
 
 ## Priority
 | Task List                     |   Status  | 
