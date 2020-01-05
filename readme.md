@@ -151,7 +151,7 @@ Overall, PER may not be the best indicator for defensive statistics. As stated b
 ## Future Directions
 Because PER is a metric that involves many basketball statistics, I'd like to conduct a multivariate regression analysis using player stats, instead of derived metric PER, across seasons to determine whether we can get a better predictive model than linear regression for win ratio and playoff qualification. 
 
-## Tableau Supplement
+## Tableau Supplement (Click Image for Interactive View)
 [![Tableau Thumbnail](https://github.com/timmy224/NBA_Analysis/blob/master/images/Tableau_thumb.png?raw=true)](https://public.tableau.com/views/NBAPERPredictionandTeamContribution/Dashboard1?:display_count=y&publish=yes&:origin=viz_share_link)
 
 ## Priority
