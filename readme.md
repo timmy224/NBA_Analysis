@@ -1,4 +1,9 @@
-# NBA Analysis - In Progress
+# NBA Analysis
+
+## Description
+Examined the relationship between calculated team PER and win ratio, and potential forecasting for playoff qualification using regression analysis with OLS method. 
+
+![Tableau Supplement](https://public.tableau.com/views/NBAPERPredictionandTeamContribution/Dashboard1?:display_count=y&publish=yes&:origin=viz_share_link)
 
 ## Introduction
 Basketball is an exciting sport with many years of recorded data on its players and teams throughout the last 20+ years. In its history, team managements and statisticians have created various metrics to evaluate player impact on the court. One of these metrics, the Player Efficiency Rating, was developed by John Hollinger to help describe a player's accomplishments and failures on the court for a given season. The Player Efficiency Rating is a single value derived from a variety of offensive and defensive player statistics relative to his peers. For any given season, an average player will have a PER value of 15, while a rating of close to 30 represents a player who is exceptional compared to his peers. 
@@ -112,8 +117,6 @@ Despite the different fits of linear models to previous season data, they were u
 ### Top 16 teams 
 Using the linear regression generated from data of 2017 - 2018, 10 out of 16 (62.5%) teams were correctly predicted to qualify for playoffs using the 2017-2018 model (bolded team abbreviations were not predicted).  
 
-<center>
-
 ####                        Eastern Conference                     
 |      Actual  2018 - 2019      |  Prediction 16-17, 17-18 model  |
 |:-----------------------------:|:-------------------------------:|
@@ -138,8 +141,6 @@ Using the linear regression generated from data of 2017 - 2018, 10 out of 16 (62
 |              SAS              |                UTA              |
 |            **LAC**            |              **MIN**            |
 
-</center>
-
 ## Discussion
 As seen with data from the last 3 seasons, there is a clear linear relationship between Team PER and win ratio. This relationship makes sense given that teams with higher PER should perform better, thus win more games during the season. While our linear models were significant with supporting adjusted R^2 and F-statistic values from Wald test, there were outliers in our data, thus increasing the variability in our model. While team PER from the previous season can predict the majority of teams that will make the playoffs the subsequent season, it isn't reliable with a 62.5% accuracy.
 
@@ -148,7 +149,7 @@ There can be many explanations for the outliers. For high PER teams that underpe
 Overall, PER may not be the best indicator for defensive statistics. As stated by John Hollinger, PER is not a reliable measure of defensive acumen as it only incorporates active stats such as blocks and steals which do not always explain a player's contribution to the team's defense. By incorporating another metric that better describes a player's defensive performance, we may reduce unexplained variability in our model. 
 
 ## Future Directions
-Because PER is a metric that involves many basketball statistics, I'd like to do a machine learning project that uses player stats, instead of PER, across seasons to determine which stat(s) can give the best prediction for win ratio and playoff appearance. 
+Because PER is a metric that involves many basketball statistics, I'd like to conduct a multivariate regression analysis using player stats, instead of derived metric PER, across seasons to determine whether we can get a better predictive model than linear regression for win ratio and playoff qualification. 
 
 ## Priority
 | Task List                     |   Status  | 
@@ -165,8 +166,9 @@ Because PER is a metric that involves many basketball statistics, I'd like to do
 | Projections                   |    done   |
 | Write summary/abstract        |    done   | 
 | Organize files                |    done   |
-| Update requirements           |           |
-| Import into SQL db            |           |
+| Update requirements           |   update  |
+| Import into SQL db            |   update  |
+| Tableau Visual                |    done   |
 
 ## Notes
 

@@ -316,7 +316,10 @@ def ols_teamPER_winRatio():
     df_teams = pd.read_csv('4_team_data_final.csv')
 
     stand_residual_dict = {}
-    for each in range(2016, 2019):
+    constant_coef = {}
+    winR_coef = {}
+
+    for each in range(1998, 2019):
         ind_season = df_teams[df_teams['Season'] == '{}-{}'.format(each, each+1)]
     
         x_data = ind_season['Win Ratio']
@@ -326,6 +329,10 @@ def ols_teamPER_winRatio():
         ols_model = sm.OLS(y_data, x_data)
         results = ols_model.fit()
         print('{}-{} Season \n'.format(each, each+1), results.summary())
+
+        # get parameters
+        constant_coef['{}-{}'.format(each, each+1)] = results.params[0]
+        winR_coef['{}-{}'.format(each, each+1)] = results.params[1]
 
         # create instance of influence
         influence = results.get_influence()
@@ -337,7 +344,9 @@ def ols_teamPER_winRatio():
         #print('Studentized residuals \n',  studentized_residuals)
 
         stand_residual_dict['{}-{}'.format(each, each+1)] = standardized_residuals
-    return stand_residual_dict
+    return stand_residual_dict, constant_coef, winR_coef
+
+ols_teamPER_winRatio()
 
 def glm_teamPER_winRatio():
     """returns table of GLM metrics"""
@@ -445,11 +454,15 @@ def qq_teamPER():
 
     plt.show()
 
-def statsModel_OLS():
-    """Using previous seasons OLS coefficients for prediction
-    statsmodel library
+def recent_2018_vs_16_17():
+    """Using 2016-2017 and 2017-2018 season predictions using OLS coefficients 
+    to test with 2018-2019 actual season win ratios.
+    
     Input: None (hardcoded filename)
-    Returns: graph """
+    Returns: 
+    * graph
+    * CSV file 
+    """
     df_teams = pd.read_csv('4_team_data_final.csv')
 
     # 2018 - 2019 Western
@@ -507,16 +520,98 @@ def statsModel_OLS():
     pred_rankings = pred_rankings.transpose()
     pred_rankings.columns = ['Conference', 'Tm', '2018 Rk', '2018 WR', 'Pred 2017 WR', 'Pred 2016 WR']
 
-    pred_rankings.to_csv('5_winR_predictions.csv')
+    pred_rankings.to_csv('5_2018_validation.csv')
     
-statsModel_OLS()
+def prev_season_pred_test():
+    """For each season, predictions of previous season generated from OLS coefficients  are used to
+    compare with actual season win ratios.
     
+    Input: None (hardcoded filename)
+    Returns: 
+    * graph
+    * CSV file"""
+    df_teams = pd.read_csv('4_team_data_final.csv')
+    stand_residual_dict, constant_coef, winR_coef = ols_teamPER_winRatio()
+
+    season_list = []
+    conference_list = []
+    name_list = []
+    rk_list = []
+    winR_list = []
+    pred_from_prev_list = []
+    constant_coef_list = []
+    winR_coef_list = []
+    
+    # start with actual 1999-2000 data to compare with previous year predictions
+    for year in range(1999, 2019):
+        # Western Conference Teams for actual season data
+        west_teams = df_teams[(df_teams['Season']=='{}-{}'.format(year, year+1)) & (df_teams['Conference']=='Western')]
+        y_west = list(west_teams['Win Ratio'])
+        x_west = list(west_teams['Rk'])
+        names_west = west_teams['Tm']
+
+        # Eastern Conference Teams for actual season data
+        east_teams = df_teams[(df_teams['Season']=='{}-{}'.format(year, year+1)) & (df_teams['Conference']=='Eastern')]
+        y_east = list(east_teams['Win Ratio'])
+        x_east = list(east_teams['Rk'])
+        names_east = east_teams['Tm']
+
+        rk = list(df_teams[df_teams['Season']=='{}-{}'.format(year, year+1)]['Rk'])
+        teamPER_pred = df_teams[df_teams['Season']=='{}-{}'.format(year, year+1)]['Team PER']
+
+        prev_year_pred = []
+        constant_coef_vals = []
+        winR_coef_vals = []
+
+        for i in teamPER_pred:
+            res = (i - constant_coef['{}-{}'.format(year-1, year)])/winR_coef['{}-{}'.format(year-1, year)]
+            prev_year_pred.append(res)
+
+        fig = plt.figure(figsize=(12, 8))
+        ax = plt.subplot(111)
+        ax.set_xmargin(0.05)
+        ax.set_ymargin(0.05)
+
+        plt.scatter(x_west, y_west, color='r', label='Western')
+        plt.scatter(x_east, y_east, color='b', label='Eastern')
+        plt.scatter(rk, prev_year_pred, color='c', label='{}-{} predicted'.format(year-1, year))
+        plt.legend(loc="upper right")
+
+        for i, txt in enumerate(names_west):
+            ax.annotate(txt, (x_west[i]+0.05, y_west[i]), size=10)
+    
+        for i, txt in enumerate(names_east):
+            ax.annotate(txt, (x_east[i]+0.05, y_east[i]), size=10)
+
+        plt.title('{}-{} Regular Season Prediction'.format(year, year+1))
+        plt.ylabel('Win Ratio (Games Won / Total Games)')
+        plt.xlabel('Season Ranking')
+        plt.tight_layout()
+        plt.show()
+        
+        # TO DO
+        # Make a dictionary outside of for loop and append to it to add to final csv file
+        season = list(df_teams[df_teams['Season']=='{}-{}'.format(year, year+1)]['Season'])
+        conf = list(df_teams[df_teams['Season']=='{}-{}'.format(year, year+1)]['Conference'])
+        names = list(df_teams[df_teams['Season']=='{}-{}'.format(year, year+1)]['Tm'])
+        winR = list(df_teams[df_teams['Season']=='{}-{}'.format(year, year+1)]['Win Ratio'])
+
+        season_list.extend(season)
+        conference_list.extend(conf)
+        name_list.extend(names)
+        rk_list.extend(rk)
+        winR_list.extend(winR)
+        pred_from_prev_list.extend(prev_year_pred)
+        constant_coef_list.extend(constant_coef_vals)
+        winR_coef_list.extend(winR_coef_vals)
 
 
+    pred_rankings = pd.DataFrame([season_list, conference_list, name_list, rk_list, winR_list, pred_from_prev_list, constant_coef_list, winR_coef_list])
+    pred_rankings = pred_rankings.transpose()
+    pred_rankings.columns = ['Season', 'Conference', 'Tm', 'Actual Season Rk', 'Actual Win Ratio', 'Predicted Win Ratio (from previous)', 'Constant', 'Win Ratio Coefficient']
 
+    pred_rankings.to_csv('6_winR_predictions.csv')
 
-
-
-
-
+#recent_2018_vs_16_17()
+prev_season_pred_test()
 
